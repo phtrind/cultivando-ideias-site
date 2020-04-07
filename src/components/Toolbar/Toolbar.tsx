@@ -39,15 +39,15 @@ export default function Toolbar() {
   const options = [
     new ButtonListItem(<HomeIcon />, "Início", () => {}),
     new ButtonListItem(<BookIcon />, "Postagens", () => {}),
-    new ButtonListItem(<AccessibilityNewIcon />, "Quem somos nós?", () => {}),
+    new ButtonListItem(<AccessibilityNewIcon />, "Conheça a gente", () => {}),
   ];
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default" elevation={0}>
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
           <ToolbarMaterial>
-            <Typography variant="h6" className={classes.title}>
+            <Typography variant="h5" className={classes.title}>
               Cultivando Ideias
             </Typography>
             <WithClass className={classes.navigationItems}>

@@ -4,6 +4,7 @@ import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import "./App.css";
 
 import Toolbar from "./components/Toolbar/Toolbar";
+import Outdoor from "./components/Outdoor/Outdoor";
 
 const theme = createMuiTheme({
   typography: {
@@ -49,6 +50,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Toolbar />
+      <Outdoor />
     </ThemeProvider>
   );
 }
