@@ -1,19 +1,13 @@
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Typography, Icon } from "@material-ui/core";
-import Avatar from "@material-ui/core/Avatar";
+import { Typography } from "@material-ui/core";
 
 import PostModel from "../../models/Post";
 
-import EnglishIcon from "./../../assets/icons/english.svg";
-import PortugueseIcon from "./../../assets/icons/portuguese.svg";
+import { InfoBar, InfoBarModel } from "./InfoBar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      //   marginTop: "40px",
-      //   marginBottom: "40px",
-    },
     title: {
       marginBottom: "20px",
     },
@@ -50,37 +44,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Post(post: PostModel) {
   const classes = useStyles();
+  const infoBarModel = new InfoBarModel(
+    post.author.image,
+    post.author.name,
+    post.datetime,
+    post.languages
+  );
 
   return (
-    <div className={classes.root}>
+    <React.Fragment>
       <div className={classes.title}>
         <Typography variant="h4">{post.title}</Typography>
       </div>
-      <div className={classes.infoAndOptions}>
-        <div className={classes.avatar}>
-          <Avatar
-            className={classes.avatarImage}
-            alt={post.author.name}
-            src={post.author.image}
-          />
-        </div>
-        <div className={classes.authorInfo}>
-          <Typography variant="body1" color="primary">
-            {post.author.name}
-          </Typography>
-          <Typography variant="body2" color="textSecondary">
-            {post.datetime.toLocaleDateString("pt-BR")}
-          </Typography>
-        </div>
-        <div className={classes.languageAndShare}>
-          <Icon className={classes.languageIcon}>
-            <img src={PortugueseIcon} alt="Open Portuguese version" />
-          </Icon>
-          <Icon className={classes.languageIcon}>
-            <img src={EnglishIcon} alt="Open English version" />
-          </Icon>
-        </div>
-      </div>
-    </div>
+      {InfoBar(infoBarModel)}
+    </React.Fragment>
   );
 }
