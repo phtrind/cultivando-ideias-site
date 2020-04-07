@@ -1,14 +1,15 @@
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
+import { Link, useHistory } from "react-router-dom";
 
 import Post from "../../models/Post";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-        marginTop: "40px",
-        marginBottom: "40px",
+      marginTop: "40px",
+      marginBottom: "40px",
     },
     summary: {
       marginBottom: "10px",
@@ -26,9 +27,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function PostSummary(post: Post) {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
-    <div key={post.id} className={classes.root}>
+    <div
+      key={post.id}
+      className={classes.root}
+      onClick={() => history.push(`/post/${post.id}/pt-BR`)}
+    >
       <div>
         <Typography variant="h4">{post.title}</Typography>
       </div>
@@ -42,7 +48,7 @@ export default function PostSummary(post: Post) {
           Postado por <span className={classes.footerData}>{post.author}</span>{" "}
           em{" "}
           <span className={classes.footerData}>
-            {post.datetime.toLocaleDateString("pt-br")}
+            {post.datetime.toLocaleDateString("pt-BR")}
           </span>
         </Typography>
       </div>

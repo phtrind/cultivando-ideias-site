@@ -1,10 +1,12 @@
 import React from "react";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.css";
 
 import Toolbar from "./components/Toolbar/Toolbar";
-import Home from "./containers/Home/Home";
+import HomeScreen from "./containers/Home/HomeScreen";
+import PostScreen from "./containers/Post/PostScreen";
 
 const theme = createMuiTheme({
   typography: {
@@ -50,7 +52,12 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Toolbar />
-      <Home />
+      <Router>
+        <Switch>
+          <Route path="/" exact component={HomeScreen} />
+          <Route path="/post/:id/:language" exact component={PostScreen} />
+        </Switch>
+      </Router>
     </ThemeProvider>
   );
 }
