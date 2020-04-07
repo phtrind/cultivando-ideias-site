@@ -1,9 +1,7 @@
-import Author from "./Author";
-
-class Post {
+class PostSummary {
   id: string;
   title: string;
-  author: Author;
+  author: string;
   content: string;
   languages: string[];
   datetime: Date;
@@ -11,7 +9,7 @@ class Post {
   constructor(
     id: string,
     title: string,
-    author: Author,
+    author: string,
     content: string,
     languages: string[],
     datetime: Date
@@ -25,4 +23,4 @@ class Post {
   }
 }
 
-export default Post;
+export default PostSummary;

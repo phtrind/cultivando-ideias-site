@@ -1,13 +1,13 @@
 import React from "react";
 import { Container } from "@material-ui/core";
 
-import Post from "../../models/Post";
+import PostSummary from "../../models/PostSummary";
 
 import Outdoor from "../../components/Outdoor/Outdoor";
 import PostList from "../../components/PostList/PostList";
 
 const postList = [
-  new Post(
+  new PostSummary(
     "dqE7u6Cm7NYRotmjCfRc",
     "Como eu saí completamente da minha zona de conforto",
     "Pedro Trindade",
@@ -15,7 +15,7 @@ const postList = [
     ["pt-BR", "en-US"],
     new Date("2020-02-27T17:00:00.000Z")
   ),
-  new Post(
+  new PostSummary(
     "a5213as2d13a5s1d3da1",
     "Como eu saí completamente da minha zona de conforto",
     "Pedro Trindade",

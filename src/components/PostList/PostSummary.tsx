@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-import Post from "../../models/Post";
+import PostSummaryModel from "../../models/PostSummary";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,17 +15,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: "10px",
       marginTop: "10px",
     },
-    footer: {
-      display: "flex",
-      justifyContent: "space-between",
-    },
     footerData: {
       color: theme.palette.primary.main,
     },
   })
 );
 
-export default function PostSummary(post: Post) {
+export default function PostSummary(post: PostSummaryModel) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -43,7 +39,7 @@ export default function PostSummary(post: Post) {
           {post.content}
         </Typography>
       </div>
-      <div className={classes.footer}>
+      <div>
         <Typography variant="body1" color="secondary">
           Postado por <span className={classes.footerData}>{post.author}</span>{" "}
           em{" "}
