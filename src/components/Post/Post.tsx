@@ -29,19 +29,20 @@ export default function Post(post: PostModel) {
     post.author.image,
     post.author.name,
     post.datetime,
-    post.languages
+    post.content.availableLanguages,
+    post.content.language
   );
 
   const authorInfo = new AuthorInfoModel(
     post.author.image,
     post.author.name,
-    post.author.bio
+    post.author.bio.data
   );
 
   return (
     <React.Fragment>
       <div className={classes.marginBottom}>
-        <Typography variant="h4">{post.title}</Typography>
+        <Typography variant="h4">{post.content.title}</Typography>
       </div>
       <div className={classes.marginBottom}>{InfoBar(infoBarModel)}</div>
       <Divider />

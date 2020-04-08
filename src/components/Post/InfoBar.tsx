@@ -44,17 +44,20 @@ export class InfoBarModel {
   name: string;
   datetime: Date;
   languages: string[];
+  selectedLanguage: string;
 
   constructor(
     image: string,
     name: string,
     datetime: Date,
-    languages: string[]
+    languages: string[],
+    selectedLanguage: string
   ) {
     this.image = image;
     this.name = name;
     this.datetime = datetime;
     this.languages = languages;
+    this.selectedLanguage = selectedLanguage;
   }
 }
 
@@ -78,14 +81,16 @@ export function InfoBar(info: InfoBarModel) {
           {info.datetime.toLocaleDateString("pt-BR")}
         </Typography>
       </div>
-      <div className={classes.languages}>
-        <Icon className={classes.languageIcon}>
-          <img src={PortugueseIcon} alt="Open Portuguese version" />
-        </Icon>
-        <Icon className={classes.languageIcon}>
-          <img src={EnglishIcon} alt="Open English version" />
-        </Icon>
-      </div>
+      {info.languages.length > 1 && (
+        <div className={classes.languages}>
+          <Icon className={classes.languageIcon}>
+            <img src={PortugueseIcon} alt="Open Portuguese version" />
+          </Icon>
+          <Icon className={classes.languageIcon}>
+            <img src={EnglishIcon} alt="Open English version" />
+          </Icon>
+        </div>
+      )}
     </div>
   );
 }
