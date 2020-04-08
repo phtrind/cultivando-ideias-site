@@ -1,10 +1,8 @@
 import React from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import { Typography, Icon } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-
-import EnglishIcon from "./../../assets/icons/english.svg";
-import PortugueseIcon from "./../../assets/icons/portuguese.svg";
+import LanguagesMenu from "../Language/LanguagesMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,16 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "50%",
     },
     languages: {
-      display: "flex",
-      justifyContent: "flex-end",
-      alignContent: "center",
-      alignItems: "center",
       width: "50%",
-    },
-    languageIcon: {
-      height: "30px",
-      width: "30px",
-      paddingLeft: "10px",
     },
   })
 );
@@ -78,17 +67,12 @@ export function InfoBar(info: InfoBarModel) {
           {info.name}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          {info.datetime.toLocaleDateString("pt-BR")}
+          {info.datetime.toLocaleDateString(info.selectedLanguage)}
         </Typography>
       </div>
       {info.languages.length > 1 && (
         <div className={classes.languages}>
-          <Icon className={classes.languageIcon}>
-            <img src={PortugueseIcon} alt="Open Portuguese version" />
-          </Icon>
-          <Icon className={classes.languageIcon}>
-            <img src={EnglishIcon} alt="Open English version" />
-          </Icon>
+          {LanguagesMenu(info.selectedLanguage, info.languages, () => {})}
         </div>
       )}
     </div>
