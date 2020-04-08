@@ -25,12 +25,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function Post(post: PostModel) {
   const classes = useStyles();
+
+  const languageChangedHandler = (language: string): void => {};
+
   const infoBarModel = new InfoBarModel(
     post.author.image,
     post.author.name,
     post.datetime,
     post.content.availableLanguages,
-    post.content.language
+    post.content.language,
+    languageChangedHandler
   );
 
   const authorInfo = new AuthorInfoModel(

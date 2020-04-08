@@ -34,19 +34,22 @@ export class InfoBarModel {
   datetime: Date;
   languages: string[];
   selectedLanguage: string;
+  selectedLanguageHandler: Function;
 
   constructor(
     image: string,
     name: string,
     datetime: Date,
     languages: string[],
-    selectedLanguage: string
+    selectedLanguage: string,
+    selectedLanguageHandler: Function
   ) {
     this.image = image;
     this.name = name;
     this.datetime = datetime;
     this.languages = languages;
     this.selectedLanguage = selectedLanguage;
+    this.selectedLanguageHandler = selectedLanguageHandler;
   }
 }
 
