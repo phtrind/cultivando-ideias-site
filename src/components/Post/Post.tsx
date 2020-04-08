@@ -104,7 +104,7 @@ const Post: FunctionComponent<PostProps> = ({
       <div className={classes.marginTop}>
         <AuthorInfo
           image={post.author.image}
-          name={post.author.image}
+          name={post.author.name}
           bio={post.author.bio.data}
         />
       </div>
