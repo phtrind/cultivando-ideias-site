@@ -31,7 +31,6 @@ const PostSummary: FunctionComponent<PostSummaryProps> = ({ post }) => {
 
   return (
     <div
-      key={post.id}
       className={classes.root}
       onClick={() => history.push(`/post/${post.id}/pt-BR`)}
     >

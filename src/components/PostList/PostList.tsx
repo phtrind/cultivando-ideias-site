@@ -12,7 +12,7 @@ const PostList: FunctionComponent<PostListProps> = ({ posts }) => {
   return (
     <div>
       {posts.map((post) => (
-        <PostSummary post={post} />
+        <PostSummary post={post} key={post.id} />
       ))}
     </div>
   );
