@@ -30,12 +30,21 @@ export default function SideDrawer(buttonList: ButtonListItem[]) {
     setState({ ...state, open: open });
   };
 
+  const selectedItemHandler = (func: Function) => {
+    setState({ ...state, open: false });
+    func();
+  };
+
   const list = () => (
     <div role="presentation">
       <List>
         {buttonList.map((x) => {
           return (
-            <ListItem button key={x.text} onClick={x.click}>
+            <ListItem
+              button
+              key={x.text}
+              onClick={() => selectedItemHandler(x.click)}
+            >
               <ListItemIcon>{x.icon}</ListItemIcon>
               <ListItemText primary={x.text} />
             </ListItem>
