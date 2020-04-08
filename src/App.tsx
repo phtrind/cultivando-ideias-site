@@ -11,6 +11,12 @@ import PostScreen from "./containers/Post/PostScreen";
 const theme = createMuiTheme({
   typography: {
     fontFamily: "'Inria Sans'",
+    body1: {
+      fontFamily: "'Inria Sans'",
+      fontWeight: "lighter",
+      fontSize: "20px",
+      lineHeight: 1.58,
+    },
   },
   palette: {
     common: {
@@ -51,8 +57,8 @@ const theme = createMuiTheme({
 export default function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Toolbar />
       <Router>
+        <Toolbar />
         <Switch>
           <Route path="/" exact component={HomeScreen} />
           <Route path="/post/:id/:language" exact component={PostScreen} />
