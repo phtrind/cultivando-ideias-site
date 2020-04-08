@@ -37,8 +37,8 @@ const post = new PostModel(
   new Author(
     "CC03scKlCGUuLEPkBeu5",
     "Pedro Trindade",
-    "About me",
-    "https://miro.medium.com/fit/c/96/96/2*tlU8XfMKZxUWEeI-TFF5NA.jpeg",
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In et urna interdum, pellentesque nunc a, convallis purus. Ut rhoncus mauris quis purus gravida mattis. Nulla non nibh fermentum, volutpat ipsum nec, dignissim orci. Nunc at enim eget lorem vehicula maximus. Vivamus imperdiet leo non enim accumsan, a euismod diam dignissim. Phasellus suscipit sit amet metus vitae volutpat. Nunc tincidunt, metus et auctor ornare, sem erat porttitor felis, id lacinia arcu magna quis mi. Cras ut dui scelerisque, porta dolor nec, volutpat justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.",
+    "https://bit.ly/3aVsm7K",
     ["en-US, pt-BR"]
   ),
   "Eu posso me lembrar perfeitamente de um dia, talvez dois anos atrás, quando eu estava um pouco desmotivado pensando sobre a vida que uma pessoa que vive no meu país de origem precisa ter para buscar o sucesso.",
