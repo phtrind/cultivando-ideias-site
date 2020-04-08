@@ -46,23 +46,22 @@ export default function Post(post: PostModel) {
       <div className={classes.marginBottom}>{InfoBar(infoBarModel)}</div>
       <Divider />
       <div className={classes.content}>
-        <Typography variant="body1">
-        <p>
+        <Typography variant="body1" paragraph={true}>
           I can clearly remember one day, maybe two years ago, when I was kind
           of unmotivated thinking about the life that a person in my home
           country needs to have aiming to succeed. Considering that success is
           having a comfortable and safe life without going through any kind of
           need, either alone or with family. I wasn’t enthusiastic reasoning
           about that.
-        </p>
-        <p>
+        </Typography>
+        <Typography variant="body1" paragraph={true}>
           To achieve this goal I would probably have to work hard for maybe
           40–60 hours weekly, struggling to save money for many years looking
           for, perhaps and only perhaps, having the opportunity to enjoy it as
           soon as I get enough resources to stop working. Here we reached an
           incredibly important spot on this train of thought.
-        </p>
-        <p>
+        </Typography>
+        <Typography variant="body1" paragraph={true}>
           Firstly, during this period that I am going to call “Working Hard
           Time”, I wouldn’t have both time and mental conditions of spending
           time with the people who love me as they deserve, what we can say that
@@ -78,8 +77,8 @@ export default function Post(post: PostModel) {
           financially independent man, will I have the required willing and
           health conditions to enjoy my life in a way that makes all my long
           “Working Hard Time” worth it?
-        </p>
-        <p>
+        </Typography>
+        <Typography variant="body1" paragraph={true}>
           Accordingly, I was discussing these points with a big friend of mine
           and we concluded that if I wanted to turn the tables and live abroad I
           would doubtless have to set the English as my main focus. At that
@@ -92,7 +91,6 @@ export default function Post(post: PostModel) {
           books: we should choose wisely the people who we spend time with and
           who are our close friends because, doing it accurately, they can help
           you to be the best version of yourself.
-        </p>
         </Typography>
       </div>
       <Divider />

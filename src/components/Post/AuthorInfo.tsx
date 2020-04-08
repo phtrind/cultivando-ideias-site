@@ -57,7 +57,7 @@ export function AuthorInfo(info: AuthorInfoModel) {
         </div>
       </div>
       <div>
-        <Typography variant="body1" color="primary">
+        <Typography variant="body1" color="primary" paragraph={true}>
           {info.bio}
         </Typography>
       </div>
