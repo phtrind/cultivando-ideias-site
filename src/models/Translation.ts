@@ -1,6 +1,4 @@
-interface Translation {
+export default interface Translation {
   data: string;
   language: string;
 }
-
-export default Translation;

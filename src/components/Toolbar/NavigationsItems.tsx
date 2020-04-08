@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import NavigationItem from "./NavigationItem";
 import ButtonListItem from "../../models/ButtonListItem";
@@ -24,10 +24,22 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function NavigationItems(buttonList: ButtonListItem[]) {
+type NavigationItemsProps = {
+  buttonList: ButtonListItem[];
+};
+
+const NavigationItems: FunctionComponent<NavigationItemsProps> = ({
+  buttonList,
+}) => {
   const classes = useStyles();
 
   return (
-    <ul className={classes.root}>{buttonList.map((x) => NavigationItem(x))}</ul>
+    <ul className={classes.root}>
+      {buttonList.map((x) => (
+        <NavigationItem item={x} key={x.text} />
+      ))}
+    </ul>
   );
-}
+};
+
+export default NavigationItems;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
@@ -21,7 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function PostSummary(post: PostSummaryModel) {
+type PostSummaryProps = {
+  post: PostSummaryModel;
+};
+
+const PostSummary: FunctionComponent<PostSummaryProps> = ({ post }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -50,4 +54,6 @@ export default function PostSummary(post: PostSummaryModel) {
       </div>
     </div>
   );
-}
+};
+
+export default PostSummary;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
@@ -28,32 +28,20 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export class InfoBarModel {
+export interface InfoBarModel {
   image: string;
   name: string;
   datetime: Date;
   languages: string[];
   selectedLanguage: string;
   selectedLanguageHandler: Function;
-
-  constructor(
-    image: string,
-    name: string,
-    datetime: Date,
-    languages: string[],
-    selectedLanguage: string,
-    selectedLanguageHandler: Function
-  ) {
-    this.image = image;
-    this.name = name;
-    this.datetime = datetime;
-    this.languages = languages;
-    this.selectedLanguage = selectedLanguage;
-    this.selectedLanguageHandler = selectedLanguageHandler;
-  }
 }
 
-export function InfoBar(info: InfoBarModel) {
+type InfoBarProps = {
+  info: InfoBarModel;
+};
+
+const InfoBar: FunctionComponent<InfoBarProps> = ({ info }) => {
   const classes = useStyles();
 
   return (
@@ -75,13 +63,15 @@ export function InfoBar(info: InfoBarModel) {
       </div>
       {info.languages.length > 1 && (
         <div className={classes.languages}>
-          {LanguagesMenu(
-            info.selectedLanguage,
-            info.languages,
-            info.selectedLanguageHandler
-          )}
+          <LanguagesMenu
+            current={info.selectedLanguage}
+            options={info.languages}
+            selectedHandler={info.selectedLanguageHandler}
+          />
         </div>
       )}
     </div>
   );
-}
+};
+
+export default InfoBar;

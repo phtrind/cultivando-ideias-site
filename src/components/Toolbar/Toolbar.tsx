@@ -37,9 +37,17 @@ export default function Toolbar() {
   const classes = useStyles();
   const history = useHistory();
 
-  const options = [
-    new ButtonListItem(<BookIcon />, "Início", () => history.push("/")),
-    new ButtonListItem(<AccessibilityNewIcon />, "Conheça a gente", () => {}),
+  const options: ButtonListItem[] = [
+    {
+      icon: <BookIcon />,
+      text: "Início",
+      click: () => history.push("/"),
+    },
+    {
+      icon: <AccessibilityNewIcon />,
+      text: "Conheça a gente",
+      click: () => {},
+    },
   ];
 
   return (
@@ -51,10 +59,10 @@ export default function Toolbar() {
               Cultivando Ideias
             </Typography>
             <WithClass className={classes.navigationItems}>
-              {NavigationItems(options)}
+              <NavigationItems buttonList={options} />
             </WithClass>
             <WithClass className={classes.sideDrawer}>
-              {SideDrawer(options)}
+              <SideDrawer buttonList={options} />
             </WithClass>
           </ToolbarMaterial>
         </Container>

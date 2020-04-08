@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
@@ -25,19 +25,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export class AuthorInfoModel {
+type AuthorInfoProps = {
   image: string;
   name: string;
   bio: string;
+};
 
-  constructor(image: string, name: string, bio: string) {
-    this.image = image;
-    this.name = name;
-    this.bio = bio;
-  }
-}
-
-export function AuthorInfo(info: AuthorInfoModel) {
+const AuthorInfo: FunctionComponent<AuthorInfoProps> = ({
+  image,
+  name,
+  bio,
+}) => {
   const classes = useStyles();
 
   return (
@@ -45,22 +43,20 @@ export function AuthorInfo(info: AuthorInfoModel) {
       <div className={classes.header}>
         <div className={classes.authorName}>
           <Typography variant="h4" color="primary">
-            {info.name}
+            {name}
           </Typography>
         </div>
         <div className={classes.avatar}>
-          <Avatar
-            className={classes.avatarImage}
-            alt={info.name}
-            src={info.image}
-          />
+          <Avatar className={classes.avatarImage} alt={name} src={image} />
         </div>
       </div>
       <div>
         <Typography variant="body1" color="primary" paragraph={true}>
-          {info.bio}
+          {bio}
         </Typography>
       </div>
     </div>
   );
-}
+};
+
+export default AuthorInfo;

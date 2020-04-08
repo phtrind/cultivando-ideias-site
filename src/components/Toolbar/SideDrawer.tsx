@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, FunctionComponent } from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Button from "@material-ui/core/Button";
@@ -19,10 +19,14 @@ const useStyles = makeStyles(() =>
   })
 );
 
-export default function SideDrawer(buttonList: ButtonListItem[]) {
+type SideDrawerProps = {
+  buttonList: ButtonListItem[];
+};
+
+const SideDrawer: FunctionComponent<SideDrawerProps> = ({ buttonList }) => {
   const classes = useStyles();
 
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     open: false,
   });
 
@@ -64,4 +68,6 @@ export default function SideDrawer(buttonList: ButtonListItem[]) {
       </Drawer>
     </div>
   );
-}
+};
+
+export default SideDrawer;

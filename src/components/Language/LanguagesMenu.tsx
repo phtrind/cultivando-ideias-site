@@ -1,12 +1,12 @@
-import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import React, { FunctionComponent } from "react";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Icon } from "@material-ui/core";
 
 import EnglishIcon from "./../../assets/icons/english.svg";
 import PortugueseIcon from "./../../assets/icons/portuguese.svg";
 import SpanishIcon from "./../../assets/icons/spanish.svg";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: "flex",
@@ -27,11 +27,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function LanguagesMenu(
-  current: string,
-  options: string[],
-  selectedHandler: Function
-) {
+type LanguagesMenuProps = {
+  current: string;
+  options: string[];
+  selectedHandler: Function;
+};
+
+const LanguagesMenu: FunctionComponent<LanguagesMenuProps> = ({
+  current,
+  options,
+  selectedHandler,
+}) => {
   const classes = useStyles();
 
   const getIcon = (culture: string): string => {
@@ -69,4 +75,6 @@ export default function LanguagesMenu(
       })}
     </div>
   );
-}
+};
+
+export default LanguagesMenu;

@@ -1,12 +1,12 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 
 import PostModel from "../../models/Post";
 
-import { InfoBar, InfoBarModel } from "./InfoBar";
-import { AuthorInfo, AuthorInfoModel } from "./AuthorInfo";
+import InfoBar, { InfoBarModel } from "./InfoBar";
+import AuthorInfo from "./AuthorInfo";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,30 +23,34 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Post(post: PostModel, languageChangedHandler: Function) {
+type PostProps = {
+  post: PostModel;
+  languageChangedHandler: Function;
+};
+
+const Post: FunctionComponent<PostProps> = ({
+  post,
+  languageChangedHandler,
+}) => {
   const classes = useStyles();
 
-  const infoBarModel = new InfoBarModel(
-    post.author.image,
-    post.author.name,
-    post.datetime,
-    post.content.availableLanguages,
-    post.content.language,
-    languageChangedHandler
-  );
-
-  const authorInfo = new AuthorInfoModel(
-    post.author.image,
-    post.author.name,
-    post.author.bio.data
-  );
+  const infoBarModel: InfoBarModel = {
+    image: post.author.image,
+    name: post.author.name,
+    datetime: post.datetime,
+    languages: post.content.availableLanguages,
+    selectedLanguage: post.content.language,
+    selectedLanguageHandler: languageChangedHandler,
+  };
 
   return (
     <React.Fragment>
       <div className={classes.marginBottom}>
         <Typography variant="h4">{post.content.title}</Typography>
       </div>
-      <div className={classes.marginBottom}>{InfoBar(infoBarModel)}</div>
+      <div className={classes.marginBottom}>
+        <InfoBar info={infoBarModel} />
+      </div>
       <Divider />
       <div className={classes.content}>
         <Typography variant="body1" paragraph={true}>
@@ -97,7 +101,15 @@ export default function Post(post: PostModel, languageChangedHandler: Function) 
         </Typography>
       </div>
       <Divider />
-      <div className={classes.marginTop}>{AuthorInfo(authorInfo)}</div>
+      <div className={classes.marginTop}>
+        <AuthorInfo
+          image={post.author.image}
+          name={post.author.image}
+          bio={post.author.bio.data}
+        />
+      </div>
     </React.Fragment>
   );
-}
+};
+
+export default Post;

@@ -1,9 +1,21 @@
-// import React from "react";
+import React, { FunctionComponent } from "react";
 
 import PostSummaryModel from "../../models/PostSummary";
 
 import PostSummary from "./PostSummary";
 
-export default function PostList(posts: PostSummaryModel[]) {
-  return posts.map((post) => PostSummary(post));
-}
+type PostListProps = {
+  posts: PostSummaryModel[];
+};
+
+const PostList: FunctionComponent<PostListProps> = ({ posts }) => {
+  return (
+    <div>
+      {posts.map((post) => (
+        <PostSummary post={post} />
+      ))}
+    </div>
+  );
+};
+
+export default PostList;
