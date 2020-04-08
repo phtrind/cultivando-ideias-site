@@ -75,7 +75,11 @@ export function InfoBar(info: InfoBarModel) {
       </div>
       {info.languages.length > 1 && (
         <div className={classes.languages}>
-          {LanguagesMenu(info.selectedLanguage, info.languages, () => {})}
+          {LanguagesMenu(
+            info.selectedLanguage,
+            info.languages,
+            info.selectedLanguageHandler
+          )}
         </div>
       )}
     </div>

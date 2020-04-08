@@ -1,6 +1,7 @@
 import React from "react";
 import { Container } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 import PostModel from "../../models/Post";
 import Post from "../../components/Post/Post";
@@ -55,10 +56,15 @@ const post = new PostModel(
 
 export default function PostScreen() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const languageChangedHandler = (language: string): void => {
+    history.push(`/post/${post.id}/${language}`);
+  };
 
   return (
     <div className={classes.root}>
-      <Container maxWidth="sm">{Post(post)}</Container>
+      <Container maxWidth="sm">{Post(post, languageChangedHandler)}</Container>
     </div>
   );
 }

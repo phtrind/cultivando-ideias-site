@@ -23,10 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function Post(post: PostModel) {
+export default function Post(post: PostModel, languageChangedHandler: Function) {
   const classes = useStyles();
-
-  const languageChangedHandler = (language: string): void => {};
 
   const infoBarModel = new InfoBarModel(
     post.author.image,

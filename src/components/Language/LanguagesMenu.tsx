@@ -50,7 +50,7 @@ export default function LanguagesMenu(
     if (current === selected) {
       return;
     }
-    selectedHandler();
+    selectedHandler(selected);
   };
 
   return (
