@@ -7,10 +7,10 @@ import NavigationItems from "./NavigationsItems";
 import WithClass from "../../hoc/WithClass";
 import SideDrawer from "./SideDrawer";
 import ButtonListItem from "../../models/ButtonListItem";
-import HomeIcon from "@material-ui/icons/Home";
 import BookIcon from "@material-ui/icons/Book";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import { Container } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -35,10 +35,10 @@ const useStyles = makeStyles(() =>
 
 export default function Toolbar() {
   const classes = useStyles();
+  const history = useHistory();
 
   const options = [
-    new ButtonListItem(<HomeIcon />, "Início", () => {}),
-    new ButtonListItem(<BookIcon />, "Postagens", () => {}),
+    new ButtonListItem(<BookIcon />, "Início", () => history.push("/")),
     new ButtonListItem(<AccessibilityNewIcon />, "Conheça a gente", () => {}),
   ];
 
