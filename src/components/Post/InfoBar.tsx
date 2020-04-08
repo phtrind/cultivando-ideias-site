@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "center",
       width: "50%",
     },
-    languageAndShare: {
+    languages: {
       display: "flex",
       justifyContent: "flex-end",
       alignContent: "center",
@@ -78,7 +78,7 @@ export function InfoBar(info: InfoBarModel) {
           {info.datetime.toLocaleDateString("pt-BR")}
         </Typography>
       </div>
-      <div className={classes.languageAndShare}>
+      <div className={classes.languages}>
         <Icon className={classes.languageIcon}>
           <img src={PortugueseIcon} alt="Open Portuguese version" />
         </Icon>
