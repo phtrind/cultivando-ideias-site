@@ -7,7 +7,7 @@ import PostModel from "../../models/Post";
 
 import InfoBar, { InfoBarModel } from "./InfoBar";
 import AuthorInfo from "./AuthorInfo";
-import Content from "./Content/Content";
+import DraftViewer from "../Draft/DraftView/DraftViewer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -54,7 +54,7 @@ const Post: FunctionComponent<PostProps> = ({
       </div>
       <Divider />
       <div className={classes.content}>
-        <Content content={post.content.data} />
+        <DraftViewer content={post.content.data} />
       </div>
       <Divider />
       <div className={classes.marginTop}>
