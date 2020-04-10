@@ -7,7 +7,7 @@ import PostModel from "../../models/Post";
 
 import InfoBar, { InfoBarModel } from "./InfoBar";
 import AuthorInfo from "./AuthorInfo";
-import DraftViewer from "../Draft/DraftView/DraftViewer";
+import DraftViewer from "../Draft/DraftViewer/DraftViewer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
