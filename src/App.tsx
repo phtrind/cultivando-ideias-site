@@ -2,8 +2,6 @@ import React from "react";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import "./App.css";
-
 import Toolbar from "./components/Toolbar/Toolbar";
 import HomeScreen from "./containers/Home/HomeScreen";
 import PostScreen from "./containers/Post/PostScreen";
