@@ -54,7 +54,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({ home, backButton }) => {
   const options: ButtonListItem[] = [
     {
       icon: <BookIcon />,
-      text: "Início",
+      text: "Postagens",
       click: () => history.push("/"),
     },
     {
