@@ -1,13 +1,5 @@
 import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-
-import {
-  EditorState,
-  convertToRaw,
-  ContentState,
-  convertFromRaw,
-} from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 
 import "./DraftViewer.css";
@@ -16,7 +8,11 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "100%",
-      fontFamily: "'Inria Sans'",
+      fontFamily:
+        "'Inria Sans', Georgia, Cambria, 'Times New Roman', Times, serif;",
+      lineHeight: "33px",
+      fontSize: "21px",
+      fontWeight: 400,
     },
   })
 );
