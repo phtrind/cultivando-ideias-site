@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
         marginBottom: "40px",
       },
     },
-    title: {},
     summary: {
       marginBottom: "10px",
       marginTop: "10px",
