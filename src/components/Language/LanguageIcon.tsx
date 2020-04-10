@@ -1,10 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import { Icon } from "@material-ui/core";
-
-import EnglishIcon from "./../../assets/icons/english.svg";
-import PortugueseIcon from "./../../assets/icons/portuguese.svg";
-import SpanishIcon from "./../../assets/icons/spanish.svg";
+import Languages from "../../constants/Languages";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -33,15 +30,7 @@ const LanguagesIcon: FunctionComponent<LanguagesIconProps> = ({
   const classes = useStyles();
 
   const getIcon = (culture: string): string => {
-    switch (culture) {
-      case "en-US":
-        return EnglishIcon;
-      case "es-ES":
-        return SpanishIcon;
-      case "pt-BR":
-      default:
-        return PortugueseIcon;
-    }
+    return Languages.filter(x => x.id === culture)[0].icon;
   };
 
   const clickHandler = () => {
