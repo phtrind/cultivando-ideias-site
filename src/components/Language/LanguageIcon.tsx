@@ -18,33 +18,29 @@ const useStyles = makeStyles(() =>
 
 type LanguagesIconProps = {
   language: string;
-  clickable: boolean;
-  click: (language: string) => void;
+  click?: (language: string) => void;
 };
 
 const LanguagesIcon: FunctionComponent<LanguagesIconProps> = ({
   language,
-  clickable,
-  click: onClick,
+  click,
 }) => {
   const classes = useStyles();
 
   const getIcon = (culture: string): string => {
-    return Languages.filter(x => x.id === culture)[0].icon;
+    return Languages.filter((x) => x.id === culture)[0].icon;
   };
 
   const clickHandler = () => {
-    if (!clickable) {
-      return;
+    if (click !== undefined) {
+      click(language);
     }
-
-    onClick(language);
   };
 
   return (
     <Icon className={classes.languageIcon}>
       <img
-        className={clickable !== null ? classes.pointer : undefined}
+        className={click !== undefined ? classes.pointer : undefined}
         src={getIcon(language)}
         alt={language}
         onClick={clickHandler}
