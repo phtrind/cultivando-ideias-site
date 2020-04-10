@@ -17,6 +17,8 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Toolbar from "../../components/Toolbar/Toolbar";
 
 import Language from "../../models/Language";
+import Languages from "../../constants/Languages";
+import LanguagesIcon from "../../components/Language/LanguageIcon";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,24 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const languages: Language[] = [
-  {
-    id: "en-US",
-    name: "English",
-    icon: "icons/english.svg",
-  },
-  {
-    id: "pt-BR",
-    name: "Português",
-    icon: "icons/portuguese.svg",
-  },
-  {
-    id: "es-ES",
-    name: "Español",
-    icon: "icons/spanish.svg",
-  },
-];
-
 function a11yProps(index: any) {
   return {
     id: `simple-tab-${index}`,
@@ -63,15 +47,15 @@ function a11yProps(index: any) {
   };
 }
 
-// interface Draft {
-//     language: string;
-//     state: Object;
-// }
+interface Draft {
+  language: Language;
+  state: Object;
+}
 
 export default function PublishScreen() {
   const [state, setState] = useState({
-    age: 0,
-    languages: [] as string[],
+    author: 0,
+    drafts: [] as Draft[],
     tab: 0,
   });
 
@@ -83,7 +67,15 @@ export default function PublishScreen() {
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
     const options = event.target.value as string[];
-    setState({ ...state, languages: options });
+    const selectedDrafts = options.map((option) => {
+      const draft = state.drafts.filter((x) => x.language.id === option);
+      const draftState = draft.length > 0 ? draft[0].state : {};
+      return {
+        language: Languages.filter((x) => x.id === option)[0],
+        state: draftState,
+      } as Draft;
+    });
+    setState({ ...state, drafts: selectedDrafts });
   };
 
   return (
@@ -98,15 +90,16 @@ export default function PublishScreen() {
                 <Select
                   labelId="author-lable"
                   id="demo-simple-select-filled"
-                  value={state.age}
+                  value={state.author}
                   onChange={authorSelectionChanged}
                 >
-                  <MenuItem value="">
-                    <em>None</em>
+                  <MenuItem value="" disabled={true}>
+                    <em>Selecione</em>
                   </MenuItem>
-                  <MenuItem value={10}>Ten</MenuItem>
-                  <MenuItem value={20}>Twenty</MenuItem>
-                  <MenuItem value={30}>Thirty</MenuItem>
+                  <MenuItem value={10}>Cilas</MenuItem>
+                  <MenuItem value={20}>Lorrayne</MenuItem>
+                  <MenuItem value={30}>Pedro</MenuItem>
+                  <MenuItem value={30}>Raphael</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -117,14 +110,21 @@ export default function PublishScreen() {
                   labelId="language-label"
                   id="demo-mutiple-checkbox"
                   multiple
-                  value={state.languages}
+                  value={state.drafts.map((x) => x.language.id)}
                   onChange={languagesSelectionChanged}
-                  renderValue={(selected) => (selected as string[]).join(", ")}
+                  renderValue={(selected) => {
+                    const names: string[] = (selected as string[]).map((x) => {
+                      return Languages.filter((l) => l.id === x)[0].name;
+                    });
+                    return names.join(", ");
+                  }}
                 >
-                  {languages.map((language) => (
+                  {Languages.map((language) => (
                     <MenuItem key={language.id} value={language.id}>
                       <Checkbox
-                        checked={state.languages.indexOf(language.id) > -1}
+                        checked={state.drafts.some(
+                          (x) => x.language.id === language.id
+                        )}
                       />
                       <ListItemText primary={language.name} />
                     </MenuItem>
@@ -138,24 +138,22 @@ export default function PublishScreen() {
             onChange={(_e, newValue) => setState({ ...state, tab: newValue })}
             aria-label="simple tabs example"
           >
-            {state.languages.map((selectedLanguage) => {
-              const language = languages.filter(
-                (x) => x.id === selectedLanguage
-              )[0];
+            {state.drafts.map((draft, index) => {
               return (
                 <Tab
-                  label={language.name}
-                  {...a11yProps(state.languages.indexOf(selectedLanguage))}
+                  label={<LanguagesIcon language={draft.language.id} />}
+                  {...a11yProps(index)}
                 />
               );
             })}
           </Tabs>
-          {state.languages.map((selectedLanguage) => {
-            const language = languages.filter(
-              (x) => x.id === selectedLanguage
-            )[0];
-            const index = languages.indexOf(language);
-            return <div hidden={state.tab !== index}>{language.name}</div>;
+          {state.drafts.map((draft, index) => {
+            // const language = languages.filter(
+            //   (x) => x.id === draft.language
+            // )[0];
+            return (
+              <div hidden={state.tab !== index}>{draft.language.name}</div>
+            );
           })}
         </Container>
       </div>
