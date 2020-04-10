@@ -22,7 +22,7 @@ const useStyles = makeStyles(() =>
     toolbarMaterial: {
       padding: 0,
     },
-    title: {
+    leftOptions: {
       flexGrow: 1,
     },
     navigationItems: {
@@ -69,7 +69,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({ home, backButton }) => {
       <AppBar position="static" color="default" elevation={0}>
         <Container maxWidth="lg">
           <ToolbarMaterial className={classes.toolbarMaterial}>
-            <div className={classes.title}>
+            <div className={classes.leftOptions}>
               {backButton && (
                 <Button
                   className={classes.backButton}
