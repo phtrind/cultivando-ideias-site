@@ -6,6 +6,7 @@ import PostSummary from "../../models/PostSummary";
 
 import Outdoor from "../../components/Outdoor/Outdoor";
 import PostList from "../../components/PostList/PostList";
+import Toolbar from "../../components/Toolbar/Toolbar";
 
 export default function HomeScreen() {
   const [state, setState] = useState({
@@ -29,6 +30,7 @@ export default function HomeScreen() {
 
   return (
     <React.Fragment>
+      <Toolbar backButton={false} home={true} />
       <Outdoor />
       <Container maxWidth="sm">
         <PostList posts={state.posts} />

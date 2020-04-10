@@ -2,7 +2,6 @@ import React from "react";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import Toolbar from "./components/Toolbar/Toolbar";
 import HomeScreen from "./containers/Home/HomeScreen";
 import PostScreen from "./containers/Post/PostScreen";
 
@@ -56,7 +55,6 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <Toolbar />
         <Switch>
           <Route path="/" exact component={HomeScreen} />
           <Route path="/post/:id/:language" exact component={PostScreen} />

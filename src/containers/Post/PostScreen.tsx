@@ -6,6 +6,7 @@ import { useHistory, useParams } from "react-router-dom";
 
 import PostModel from "../../models/Post";
 import Post from "../../components/Post/Post";
+import Toolbar from "../../components/Toolbar/Toolbar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,14 +60,17 @@ export default function PostScreen() {
   };
 
   return state.post.id ? (
-    <div className={classes.root}>
-      <Container maxWidth="sm">
-        <Post
-          post={state.post}
-          languageChangedHandler={languageChangedHandler}
-        />
-      </Container>
-    </div>
+    <React.Fragment>
+      <Toolbar backButton={true} home={false} />
+      <div className={classes.root}>
+        <Container maxWidth="sm">
+          <Post
+            post={state.post}
+            languageChangedHandler={languageChangedHandler}
+          />
+        </Container>
+      </div>
+    </React.Fragment>
   ) : (
     <p>Carregando</p>
   );
