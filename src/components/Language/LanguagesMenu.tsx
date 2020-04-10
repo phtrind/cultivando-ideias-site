@@ -51,7 +51,6 @@ const LanguagesMenu: FunctionComponent<LanguagesMenuProps> = ({
           <LanguagesIcon
             key={x}
             language={x}
-            clickable={true}
             click={languageClicked}
           />
         );
