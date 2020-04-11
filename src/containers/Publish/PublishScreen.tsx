@@ -17,8 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
     formControl: {
-      margin: theme.spacing(1),
-      width: "95%",
+      marginTop: theme.spacing(1),
+      marginBottom: theme.spacing(1),
+      width: "100%",
+      "@media (min-width: 500px)": {
+        width: "98%",
+      },
     },
     drafts: {
       marginTop: "20px",
@@ -123,7 +127,7 @@ export default function PublishScreen() {
 
   return (
     <React.Fragment>
-      <Toolbar showTitle title="Novo post" />
+      <Toolbar showTitle title="Novo post" showMenu={false} />
       <div className={classes.root}>
         <Container maxWidth="md">
           <Grid container>
