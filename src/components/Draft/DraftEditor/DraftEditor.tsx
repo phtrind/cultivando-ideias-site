@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 
 import { Editor } from "react-draft-wysiwyg";
 import { convertFromRaw, EditorState } from "draft-js";
@@ -18,13 +19,19 @@ const useStyles = makeStyles(() =>
 );
 
 type DraftEditorProps = {
-  onStateChanged: (json: string) => void;
   initialContent?: string;
+  hasTitle: boolean;
+  initialTitle?: string;
+  onStateChanged: (json: string) => void;
+  onTitleChanged: (value: string) => void;
 };
 
 const DraftEditor: FunctionComponent<DraftEditorProps> = ({
-  onStateChanged,
   initialContent,
+  hasTitle,
+  initialTitle,
+  onStateChanged,
+  onTitleChanged,
 }) => {
   const [state, setState] = useState(() => {
     let initialState: EditorState;
@@ -45,8 +52,20 @@ const DraftEditor: FunctionComponent<DraftEditorProps> = ({
     onStateChanged(JSON.stringify(state));
   };
 
+  const titleChangedHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    onTitleChanged(event.target.value);
+  };
+
   return (
     <div className={classes.root}>
+      {hasTitle && (
+        <TextField
+          label="Título"
+          value={initialTitle}
+          onChange={titleChangedHandler}
+          fullWidth
+        />
+      )}
       <Editor
         wrapperClassName="demo-wrapper"
         editorClassName="demo-editor"

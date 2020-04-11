@@ -112,6 +112,12 @@ export default function PublishScreen() {
     setState({ ...state, drafts: drafts });
   };
 
+  const draftTitleChangedHandler = (title: string, index: number) => {
+    const drafts = state.drafts;
+    drafts[index].title = title;
+    setState({ ...state, drafts: drafts });
+  };
+
   return (
     <React.Fragment>
       <Toolbar backButton={true} home={false} />
@@ -155,11 +161,14 @@ export default function PublishScreen() {
           {state.drafts.map((draft, index) => {
             return (
               <div hidden={state.tab !== index} key={index}>
-                {draft.language.name}
                 <DraftEditor
                   onStateChanged={(value) =>
                     draftStateChangedHandler(value, index)
                   }
+                  onTitleChanged={(value) =>
+                    draftTitleChangedHandler(value, index)
+                  }
+                  hasTitle
                 />
               </div>
             );
