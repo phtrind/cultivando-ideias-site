@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-function a11yProps(index: any) {
+function tabProps(index: any) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
@@ -53,13 +53,14 @@ function a11yProps(index: any) {
 interface Draft {
   language: Language;
   state: RawDraftContentState;
+  title: string;
 }
 
 export default function PublishScreen() {
   const [state, setState] = useState({
     author: 0,
-    drafts: [] as Draft[],
     tab: 0,
+    drafts: [] as Draft[],
   });
 
   const classes = useStyles();
@@ -76,10 +77,19 @@ export default function PublishScreen() {
   ) => {
     const options = event.target.value as string[];
     const selectedDrafts = options.map((option) => {
-      const draft = state.drafts.filter((x) => x.language.id === option);
-      const draftState = draft.length > 0 ? draft[0].state : {};
+      const existentDraft = state.drafts.filter(
+        (x) => x.language.id === option
+      );
+      let draftLanguage, draftState;
+      if (existentDraft.length > 0) {
+        draftLanguage = existentDraft[0].language;
+        draftState = existentDraft[0].state;
+      } else {
+        draftLanguage = Languages.filter((x) => x.id === option)[0];
+        draftState = {};
+      }
       return {
-        language: Languages.filter((x) => x.id === option)[0],
+        language: draftLanguage,
         state: draftState,
       } as Draft;
     });
@@ -88,12 +98,10 @@ export default function PublishScreen() {
 
   const onContentStateChange = (
     contentState: RawDraftContentState,
-    index: number,
-    draft: Draft
+    index: number
   ) => {
-    const drafts = state.drafts.splice(index, 1);
-    draft.state = contentState;
-    drafts.push(draft);
+    const drafts = state.drafts;
+    drafts[index].state = contentState;
     setState({ ...state, drafts: drafts });
   };
 
@@ -162,15 +170,12 @@ export default function PublishScreen() {
                 <Tab
                   key={index}
                   label={<LanguagesIcon language={draft.language.id} />}
-                  {...a11yProps(index)}
+                  {...tabProps(index)}
                 />
               );
             })}
           </Tabs>
           {state.drafts.map((draft, index) => {
-            // const language = languages.filter(
-            //   (x) => x.id === draft.language
-            // )[0];
             return (
               <div hidden={state.tab !== index} key={index}>
                 {draft.language.name}
@@ -178,7 +183,7 @@ export default function PublishScreen() {
                   wrapperClassName="demo-wrapper"
                   editorClassName="demo-editor"
                   onContentStateChange={(state) =>
-                    onContentStateChange(state, index, draft)
+                    onContentStateChange(state, index)
                   }
                 />
               </div>
