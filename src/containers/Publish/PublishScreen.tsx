@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Grid, Tabs, Tab, Button, Fab } from "@material-ui/core";
+import { Container, Grid, Tabs, Tab, Fab } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import Toolbar from "../../components/Toolbar/Toolbar";
@@ -15,7 +15,10 @@ import KeyValue from "../../models/KeyValue";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {},
+    root: {
+      marginTop: "20px",
+      marginBottom: "20px",
+    },
     formControl: {
       marginTop: theme.spacing(1),
       marginBottom: theme.spacing(1),
