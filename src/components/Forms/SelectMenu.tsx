@@ -20,7 +20,7 @@ const SelectMenu: FunctionComponent<SelectMenuProps> = ({
 }) => {
   return (
     <FormControl variant="filled" className={className}>
-      <InputLabel id="author-lable">{label}</InputLabel>
+      <InputLabel id={`${label}-label`}>{label}</InputLabel>
       <Select
         labelId={`${label}-label`}
         value={value}
