@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Container, Grid, Tabs, Tab } from "@material-ui/core";
+import { Container, Grid, Tabs, Tab, Button, Fab } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import Toolbar from "../../components/Toolbar/Toolbar";
@@ -16,16 +16,19 @@ import KeyValue from "../../models/KeyValue";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
-    formGrid: {
-      paddingLeft: "15px",
-      paddingRight: "15px",
-    },
     formControl: {
       margin: theme.spacing(1),
-      width: "100%",
+      width: "95%",
     },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
+    drafts: {
+      marginTop: "20px",
+    },
+    button: {
+      margin: theme.spacing(1),
+      position: "fixed",
+      right: 20,
+      bottom: 20,
+      zIndex: 9999,
     },
   })
 );
@@ -120,11 +123,11 @@ export default function PublishScreen() {
 
   return (
     <React.Fragment>
-      <Toolbar backButton={true} home={false} />
+      <Toolbar showTitle title="Novo post" />
       <div className={classes.root}>
         <Container maxWidth="md">
           <Grid container>
-            <Grid item sm={6} xs={12} className={classes.formGrid}>
+            <Grid item sm={6} xs={12}>
               <SelectMenu
                 items={authors}
                 label="Autor"
@@ -133,7 +136,7 @@ export default function PublishScreen() {
                 onChange={authorSelectionChanged}
               />
             </Grid>
-            <Grid item sm={6} xs={12} className={classes.formGrid}>
+            <Grid item sm={6} xs={12}>
               <MultipleSelectMenu
                 items={languageOptions}
                 label="Idiomas"
@@ -143,36 +146,41 @@ export default function PublishScreen() {
               />
             </Grid>
           </Grid>
-          <Tabs
-            value={state.tab}
-            onChange={(_e, newValue) => setState({ ...state, tab: newValue })}
-            aria-label="simple tabs example"
-          >
-            {state.drafts.map((draft, index) => {
+          <div className={classes.drafts}>
+            <Tabs
+              value={state.tab}
+              onChange={(_e, newValue) => setState({ ...state, tab: newValue })}
+              variant="fullWidth"
+            >
+              {state.drafts.map((draft, index) => {
+                return (
+                  <Tab
+                    key={index}
+                    icon={<LanguagesIcon language={draft.language.id} />}
+                    {...tabProps(index)}
+                  />
+                );
+              })}
+            </Tabs>
+            {state.drafts.map((_, index) => {
               return (
-                <Tab
-                  key={index}
-                  label={<LanguagesIcon language={draft.language.id} />}
-                  {...tabProps(index)}
-                />
+                <div hidden={state.tab !== index} key={index}>
+                  <DraftEditor
+                    onStateChanged={(value) =>
+                      draftStateChangedHandler(value, index)
+                    }
+                    onTitleChanged={(value) =>
+                      draftTitleChangedHandler(value, index)
+                    }
+                    hasTitle
+                  />
+                </div>
               );
             })}
-          </Tabs>
-          {state.drafts.map((draft, index) => {
-            return (
-              <div hidden={state.tab !== index} key={index}>
-                <DraftEditor
-                  onStateChanged={(value) =>
-                    draftStateChangedHandler(value, index)
-                  }
-                  onTitleChanged={(value) =>
-                    draftTitleChangedHandler(value, index)
-                  }
-                  hasTitle
-                />
-              </div>
-            );
-          })}
+          </div>
+          <Fab variant="extended" className={classes.button}>
+            Publicar
+          </Fab>
         </Container>
       </div>
     </React.Fragment>

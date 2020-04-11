@@ -9,11 +9,15 @@ const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: "100%",
+      paddingTop: "10px",
       fontFamily:
         "'Inria Sans', Georgia, Cambria, 'Times New Roman', Times, serif;",
       lineHeight: "33px",
       fontSize: "21px",
       fontWeight: 100,
+    },
+    title: {
+      marginBottom: "20px",
     },
   })
 );
@@ -59,12 +63,14 @@ const DraftEditor: FunctionComponent<DraftEditorProps> = ({
   return (
     <div className={classes.root}>
       {hasTitle && (
-        <TextField
-          label="Título"
-          value={initialTitle}
-          onChange={titleChangedHandler}
-          fullWidth
-        />
+        <div className={classes.title}>
+          <TextField
+            label="Título"
+            value={initialTitle}
+            onChange={titleChangedHandler}
+            fullWidth
+          />
+        </div>
       )}
       <Editor
         wrapperClassName="demo-wrapper"
