@@ -12,6 +12,8 @@ import MultipleSelectMenu from "../../components/Forms/MultipleSelectMenu";
 import Languages from "../../constants/Languages";
 import Language from "../../models/Language";
 import KeyValue from "../../models/KeyValue";
+import Content from "../../models/Content";
+import NewPost from "../../models/NewPost";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -105,7 +107,7 @@ export default function PublishScreen() {
         draftLanguage = existentDraft[0].language;
         draftState = existentDraft[0].value;
       } else {
-        draftLanguage = Languages.filter((x) => x.id === option)[0];
+        draftLanguage = Languages.find((x) => x.id === option);
         draftState = {};
       }
       return {
@@ -126,6 +128,22 @@ export default function PublishScreen() {
     const drafts = state.drafts;
     drafts[index].title = title;
     setState({ ...state, drafts: drafts });
+  };
+
+  const publish = () => {
+    const contents: Content[] = state.drafts.map((draft) => {
+      return {
+        title: draft.title,
+        language: draft.language.id,
+        data: draft.value,
+      } as Content;
+    });
+    const post: NewPost = {
+      author: state.author,
+      contents: contents,
+    };
+    console.log(post);
+    console.log(JSON.stringify(post));
   };
 
   return (
@@ -185,7 +203,11 @@ export default function PublishScreen() {
               );
             })}
           </div>
-          <Fab variant="extended" className={classes.button}>
+          <Fab
+            variant="extended"
+            className={classes.button}
+            onClick={() => publish()}
+          >
             Publicar
           </Fab>
         </Container>
