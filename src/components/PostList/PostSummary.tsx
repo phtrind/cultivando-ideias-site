@@ -11,11 +11,8 @@ const useStyles = makeStyles((theme: Theme) =>
       marginTop: "40px",
       marginBottom: "40px",
     },
-    summary: {
-      marginBottom: "10px",
-      marginTop: "10px",
-    },
     footerData: {
+      marginTop: "10px",
       color: theme.palette.primary.main,
     },
   })
@@ -36,11 +33,6 @@ const PostSummary: FunctionComponent<PostSummaryProps> = ({ post }) => {
     >
       <div>
         <Typography variant="h4">{post.title}</Typography>
-      </div>
-      <div className={classes.summary}>
-        <Typography variant="body1" color="textSecondary">
-          {post.content}
-        </Typography>
       </div>
       <div>
         <Typography variant="body1" color="secondary">
