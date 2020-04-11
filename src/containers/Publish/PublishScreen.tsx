@@ -1,27 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Container,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Grid,
-  Checkbox,
-  ListItemText,
-  Tabs,
-  Tab,
-} from "@material-ui/core";
+import { Container, Grid, Tabs, Tab } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
 import Toolbar from "../../components/Toolbar/Toolbar";
-
-import Language from "../../models/Language";
-import Languages from "../../constants/Languages";
 import LanguagesIcon from "../../components/Language/LanguageIcon";
 import DraftEditor from "../../components/Draft/DraftEditor/DraftEditor";
-import KeyValue from "../../models/KeyValue";
 import SelectMenu from "../../components/Forms/SelectMenu";
+import MultipleSelectMenu from "../../components/Forms/MultipleSelectMenu";
+
+import Languages from "../../constants/Languages";
+import Language from "../../models/Language";
+import KeyValue from "../../models/KeyValue";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,6 +55,10 @@ const authors: KeyValue[] = [
     value: "Raphael",
   },
 ];
+
+const languageOptions: KeyValue[] = Languages.map((language) => {
+  return { key: language.id, value: language.name } as KeyValue;
+});
 
 interface Draft {
   language: Language;
@@ -129,38 +123,18 @@ export default function PublishScreen() {
                 items={authors}
                 label="Autor"
                 className={classes.formControl}
-                onChange={authorSelectionChanged}
                 value={state.author}
+                onChange={authorSelectionChanged}
               />
             </Grid>
             <Grid item sm={6} xs={12} className={classes.formGrid}>
-              <FormControl variant="filled" className={classes.formControl}>
-                <InputLabel id="language-label">Idiomas</InputLabel>
-                <Select
-                  labelId="language-label"
-                  id="demo-mutiple-checkbox"
-                  multiple
-                  value={state.drafts.map((x) => x.language.id)}
-                  onChange={languagesSelectionChanged}
-                  renderValue={(selected) => {
-                    const names: string[] = (selected as string[]).map((x) => {
-                      return Languages.filter((l) => l.id === x)[0].name;
-                    });
-                    return names.join(", ");
-                  }}
-                >
-                  {Languages.map((language) => (
-                    <MenuItem key={language.id} value={language.id}>
-                      <Checkbox
-                        checked={state.drafts.some(
-                          (x) => x.language.id === language.id
-                        )}
-                      />
-                      <ListItemText primary={language.name} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              <MultipleSelectMenu
+                items={languageOptions}
+                label="Idiomas"
+                className={classes.formControl}
+                value={state.drafts.map((x) => x.language.id)}
+                onChange={languagesSelectionChanged}
+              />
             </Grid>
           </Grid>
           <Tabs
