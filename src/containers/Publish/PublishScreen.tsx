@@ -14,21 +14,18 @@ import {
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
-import { Editor, RawDraftContentState } from "react-draft-wysiwyg";
-import { convertFromRaw } from "draft-js";
-
 import Toolbar from "../../components/Toolbar/Toolbar";
 
 import Language from "../../models/Language";
 import Languages from "../../constants/Languages";
 import LanguagesIcon from "../../components/Language/LanguageIcon";
+import DraftEditor from "../../components/Draft/DraftEditor/DraftEditor";
+import KeyValue from "../../models/KeyValue";
+import SelectMenu from "../../components/Forms/SelectMenu";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {},
-    // form: {
-    //     display: "flex",
-    // },
     formGrid: {
       paddingLeft: "15px",
       paddingRight: "15px",
@@ -50,15 +47,34 @@ function tabProps(index: any) {
   };
 }
 
+const authors: KeyValue[] = [
+  {
+    key: "1",
+    value: "Cilas",
+  },
+  {
+    key: "2",
+    value: "Lorrayne",
+  },
+  {
+    key: "3",
+    value: "Pedro",
+  },
+  {
+    key: "4",
+    value: "Raphael",
+  },
+];
+
 interface Draft {
   language: Language;
-  state: RawDraftContentState;
   title: string;
+  value: string;
 }
 
 export default function PublishScreen() {
   const [state, setState] = useState({
-    author: 0,
+    author: "",
     tab: 0,
     drafts: [] as Draft[],
   });
@@ -68,7 +84,7 @@ export default function PublishScreen() {
   const authorSelectionChanged = (
     event: React.ChangeEvent<{ value: unknown }>
   ) => {
-    const value = event.target.value as number;
+    const value = event.target.value as string;
     setState({ ...state, author: value });
   };
 
@@ -83,25 +99,22 @@ export default function PublishScreen() {
       let draftLanguage, draftState;
       if (existentDraft.length > 0) {
         draftLanguage = existentDraft[0].language;
-        draftState = existentDraft[0].state;
+        draftState = existentDraft[0].value;
       } else {
         draftLanguage = Languages.filter((x) => x.id === option)[0];
         draftState = {};
       }
       return {
         language: draftLanguage,
-        state: draftState,
+        value: draftState,
       } as Draft;
     });
     setState({ ...state, drafts: selectedDrafts });
   };
 
-  const onContentStateChange = (
-    contentState: RawDraftContentState,
-    index: number
-  ) => {
+  const draftStateChangedHandler = (draftState: string, index: number) => {
     const drafts = state.drafts;
-    drafts[index].state = contentState;
+    drafts[index].value = draftState;
     setState({ ...state, drafts: drafts });
   };
 
@@ -112,23 +125,13 @@ export default function PublishScreen() {
         <Container maxWidth="md">
           <Grid container>
             <Grid item sm={6} xs={12} className={classes.formGrid}>
-              <FormControl variant="filled" className={classes.formControl}>
-                <InputLabel id="author-lable">Autor</InputLabel>
-                <Select
-                  labelId="author-lable"
-                  id="demo-simple-select-filled"
-                  value={state.author}
-                  onChange={authorSelectionChanged}
-                >
-                  <MenuItem value={0} disabled={true}>
-                    <em>Selecione</em>
-                  </MenuItem>
-                  <MenuItem value={1}>Cilas</MenuItem>
-                  <MenuItem value={2}>Lorrayne</MenuItem>
-                  <MenuItem value={3}>Pedro</MenuItem>
-                  <MenuItem value={4}>Raphael</MenuItem>
-                </Select>
-              </FormControl>
+              <SelectMenu
+                items={authors}
+                label="Autor"
+                className={classes.formControl}
+                onChange={authorSelectionChanged}
+                value={state.author}
+              />
             </Grid>
             <Grid item sm={6} xs={12} className={classes.formGrid}>
               <FormControl variant="filled" className={classes.formControl}>
@@ -179,11 +182,9 @@ export default function PublishScreen() {
             return (
               <div hidden={state.tab !== index} key={index}>
                 {draft.language.name}
-                <Editor
-                  wrapperClassName="demo-wrapper"
-                  editorClassName="demo-editor"
-                  onContentStateChange={(state) =>
-                    onContentStateChange(state, index)
+                <DraftEditor
+                  onStateChanged={(value) =>
+                    draftStateChangedHandler(value, index)
                   }
                 />
               </div>
