@@ -17,11 +17,11 @@ const useStyles = makeStyles(() =>
   })
 );
 
-type ContentProps = {
+type DraftViewerProps = {
   content: string;
 };
 
-const Content: FunctionComponent<ContentProps> = ({ content }) => {
+const DraftViewer: FunctionComponent<DraftViewerProps> = ({ content }) => {
   const classes = useStyles();
 
   return (
@@ -32,4 +32,4 @@ const Content: FunctionComponent<ContentProps> = ({ content }) => {
   );
 };
 
-export default Content;
+export default DraftViewer;
