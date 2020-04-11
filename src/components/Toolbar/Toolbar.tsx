@@ -43,11 +43,16 @@ const useStyles = makeStyles(() =>
 );
 
 type ToolbarProps = {
-  home: boolean;
-  backButton: boolean;
+  showTitle?: boolean;
+  showBackButton?: boolean;
+  title?: string;
 };
 
-const Toolbar: FunctionComponent<ToolbarProps> = ({ home, backButton }) => {
+const Toolbar: FunctionComponent<ToolbarProps> = ({
+  showTitle,
+  showBackButton,
+  title,
+}) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -70,7 +75,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({ home, backButton }) => {
         <Container maxWidth="lg">
           <ToolbarMaterial className={classes.toolbarMaterial}>
             <div className={classes.leftOptions}>
-              {backButton && (
+              {showBackButton && (
                 <Button
                   className={classes.backButton}
                   onClick={() => history.goBack()}
@@ -78,7 +83,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({ home, backButton }) => {
                   <ArrowBackIcon />
                 </Button>
               )}
-              {home && <Typography variant="h5">Cultivando Ideias</Typography>}
+              {showTitle && <Typography variant="h5">{title}</Typography>}
             </div>
             <WithClass className={classes.navigationItems}>
               <NavigationItems buttonList={options} />

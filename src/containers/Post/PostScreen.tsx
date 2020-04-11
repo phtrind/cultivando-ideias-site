@@ -60,7 +60,7 @@ export default function PostScreen() {
 
   return state.post.id ? (
     <React.Fragment>
-      <Toolbar backButton={true} home={false} />
+      <Toolbar showBackButton />
       <div className={classes.root}>
         <Container maxWidth="sm">
           <Post

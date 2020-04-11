@@ -30,7 +30,7 @@ export default function HomeScreen() {
 
   return (
     <React.Fragment>
-      <Toolbar backButton={false} home={true} />
+      <Toolbar showTitle title="Cultivando Ideias" />
       <Outdoor />
       <Container maxWidth="sm">
         <PostList posts={state.posts} />
