@@ -45,12 +45,14 @@ const useStyles = makeStyles(() =>
 type ToolbarProps = {
   showTitle?: boolean;
   showBackButton?: boolean;
+  showMenu?: boolean;
   title?: string;
 };
 
 const Toolbar: FunctionComponent<ToolbarProps> = ({
   showTitle,
   showBackButton,
+  showMenu,
   title,
 }) => {
   const classes = useStyles();
@@ -72,7 +74,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default" elevation={0}>
-        <Container maxWidth="lg">
+        <Container maxWidth="md">
           <ToolbarMaterial className={classes.toolbarMaterial}>
             <div className={classes.leftOptions}>
               {showBackButton && (
@@ -85,12 +87,16 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({
               )}
               {showTitle && <Typography variant="h5">{title}</Typography>}
             </div>
-            <WithClass className={classes.navigationItems}>
-              <NavigationItems buttonList={options} />
-            </WithClass>
-            <WithClass className={classes.sideDrawer}>
-              <SideDrawer buttonList={options} />
-            </WithClass>
+            {(showMenu === undefined || showMenu === true) && (
+              <React.Fragment>
+                <WithClass className={classes.navigationItems}>
+                  <NavigationItems buttonList={options} />
+                </WithClass>
+                <WithClass className={classes.sideDrawer}>
+                  <SideDrawer buttonList={options} />
+                </WithClass>
+              </React.Fragment>
+            )}
           </ToolbarMaterial>
         </Container>
       </AppBar>
