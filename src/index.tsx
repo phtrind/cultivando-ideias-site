@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 ReactDOM.render(
   <React.StrictMode>

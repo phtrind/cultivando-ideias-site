@@ -14,6 +14,9 @@ import {
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
+import { Editor, RawDraftContentState } from "react-draft-wysiwyg";
+import { convertFromRaw } from "draft-js";
+
 import Toolbar from "../../components/Toolbar/Toolbar";
 
 import Language from "../../models/Language";
@@ -49,7 +52,7 @@ function a11yProps(index: any) {
 
 interface Draft {
   language: Language;
-  state: Object;
+  state: RawDraftContentState;
 }
 
 export default function PublishScreen() {
@@ -61,7 +64,12 @@ export default function PublishScreen() {
 
   const classes = useStyles();
 
-  const authorSelectionChanged = () => {};
+  const authorSelectionChanged = (
+    event: React.ChangeEvent<{ value: unknown }>
+  ) => {
+    const value = event.target.value as number;
+    setState({ ...state, author: value });
+  };
 
   const languagesSelectionChanged = (
     event: React.ChangeEvent<{ value: unknown }>
@@ -76,6 +84,17 @@ export default function PublishScreen() {
       } as Draft;
     });
     setState({ ...state, drafts: selectedDrafts });
+  };
+
+  const onContentStateChange = (
+    contentState: RawDraftContentState,
+    index: number,
+    draft: Draft
+  ) => {
+    const drafts = state.drafts.splice(index, 1);
+    draft.state = contentState;
+    drafts.push(draft);
+    setState({ ...state, drafts: drafts });
   };
 
   return (
@@ -93,13 +112,13 @@ export default function PublishScreen() {
                   value={state.author}
                   onChange={authorSelectionChanged}
                 >
-                  <MenuItem value="" disabled={true}>
+                  <MenuItem value={0} disabled={true}>
                     <em>Selecione</em>
                   </MenuItem>
-                  <MenuItem value={10}>Cilas</MenuItem>
-                  <MenuItem value={20}>Lorrayne</MenuItem>
-                  <MenuItem value={30}>Pedro</MenuItem>
-                  <MenuItem value={30}>Raphael</MenuItem>
+                  <MenuItem value={1}>Cilas</MenuItem>
+                  <MenuItem value={2}>Lorrayne</MenuItem>
+                  <MenuItem value={3}>Pedro</MenuItem>
+                  <MenuItem value={4}>Raphael</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
@@ -141,6 +160,7 @@ export default function PublishScreen() {
             {state.drafts.map((draft, index) => {
               return (
                 <Tab
+                  key={index}
                   label={<LanguagesIcon language={draft.language.id} />}
                   {...a11yProps(index)}
                 />
@@ -152,7 +172,16 @@ export default function PublishScreen() {
             //   (x) => x.id === draft.language
             // )[0];
             return (
-              <div hidden={state.tab !== index}>{draft.language.name}</div>
+              <div hidden={state.tab !== index} key={index}>
+                {draft.language.name}
+                <Editor
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onContentStateChange={(state) =>
+                    onContentStateChange(state, index, draft)
+                  }
+                />
+              </div>
             );
           })}
         </Container>
