@@ -103,10 +103,12 @@ export default function PublishScreen() {
       const existentDraft = state.drafts.filter(
         (x) => x.language.id === option
       );
-      let draftLanguage, draftState;
+      let draftLanguage, draftState, draftTitle, draftSummary;
       if (existentDraft.length > 0) {
         draftLanguage = existentDraft[0].language;
         draftState = existentDraft[0].value;
+        draftTitle = existentDraft[0].title;
+        draftSummary = existentDraft[0].summary;
       } else {
         draftLanguage = Languages.find((x) => x.id === option);
         draftState = {};
@@ -114,6 +116,8 @@ export default function PublishScreen() {
       return {
         language: draftLanguage,
         value: draftState,
+        title: draftTitle,
+        summary: draftSummary,
       } as Draft;
     });
     setState({ ...state, drafts: selectedDrafts });
