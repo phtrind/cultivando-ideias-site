@@ -45,6 +45,7 @@ const useStyles = makeStyles(() =>
 type ToolbarProps = {
   showTitle?: boolean;
   showBackButton?: boolean;
+  backClick?: () => void;
   showMenu?: boolean;
   title?: string;
 };
@@ -52,6 +53,7 @@ type ToolbarProps = {
 const Toolbar: FunctionComponent<ToolbarProps> = ({
   showTitle,
   showBackButton,
+  backClick,
   showMenu,
   title,
 }) => {
@@ -80,7 +82,9 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({
               {showBackButton && (
                 <Button
                   className={classes.backButton}
-                  onClick={() => history.goBack()}
+                  onClick={() =>
+                    backClick !== undefined ? backClick() : history.goBack()
+                  }
                 >
                   <ArrowBackIcon />
                 </Button>
