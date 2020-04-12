@@ -3,7 +3,7 @@ import { createStyles, makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 
 import { Editor } from "react-draft-wysiwyg";
-import { convertFromRaw, EditorState } from "draft-js";
+import { convertFromRaw, EditorState, RawDraftContentState } from "draft-js";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -59,6 +59,9 @@ const DraftEditor: FunctionComponent<DraftEditorProps> = ({
 
   const editorStateChangedHandler = (state: EditorState) => {
     setState({ editorState: state });
+  };
+
+  const contentStateChangedHandler = (state: RawDraftContentState) => {
     onStateChanged(JSON.stringify(state));
   };
 
@@ -105,6 +108,7 @@ const DraftEditor: FunctionComponent<DraftEditorProps> = ({
         editorClassName="demo-editor"
         defaultEditorState={state.editorState}
         onEditorStateChange={editorStateChangedHandler}
+        onContentStateChange={contentStateChangedHandler}
       />
     </div>
   );
