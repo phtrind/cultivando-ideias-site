@@ -7,6 +7,7 @@ import { useHistory, useParams } from "react-router-dom";
 import PostModel from "../../models/Post";
 import Post from "../../components/Post/Post";
 import Toolbar from "../../components/Toolbar/Toolbar";
+import Loading from "../../components/Prefabs/Feedback/Loading";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,16 +52,21 @@ export default function PostScreen() {
         response.data.datetime = new Date(response.data.datetime);
         setState(() => ({ post: response.data, loading: false }));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setState((s) => ({ ...s, loading: false }));
+      });
   }, [id, language]);
 
   const languageChangedHandler = (language: string): void => {
     history.push(`/post/${state.post?.id}/${language}`);
   };
 
-  return state.post.id ? (
+  return state.loading ? (
+    <Loading open={state.loading} />
+  ) : (
     <React.Fragment>
-      <Toolbar showBackButton />
+      <Toolbar showBackButton backClick={() => history.push("/")} />
       <div className={classes.root}>
         <Container maxWidth="sm">
           <Post
@@ -69,8 +75,7 @@ export default function PostScreen() {
           />
         </Container>
       </div>
+      <Loading open={state.loading} />
     </React.Fragment>
-  ) : (
-    <p>Carregando</p>
   );
 }

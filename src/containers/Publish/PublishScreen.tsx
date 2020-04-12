@@ -17,6 +17,7 @@ import Language from "../../models/Language";
 import KeyValue from "../../models/KeyValue";
 import Content from "../../models/Content";
 import NewPost from "../../models/NewPost";
+import Loading from "../../components/Prefabs/Feedback/Loading";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -71,6 +72,7 @@ export default function PublishScreen() {
     drafts: [] as Draft[],
     validationSnackbar: false,
     validationMessage: [] as string[],
+    loading: true,
   });
 
   useEffect(() => {
@@ -79,9 +81,12 @@ export default function PublishScreen() {
         "http://localhost:5003/cultivando-ideias/us-central1/api/authors/combo"
       )
       .then((response) => {
-        setState((s) => ({ ...s, authorsList: response.data }));
+        setState((s) => ({ ...s, authorsList: response.data, loading: false }));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setState((s) => ({ ...s, loading: false }));
+        console.log(error);
+      });
   }, []);
 
   const classes = useStyles();
@@ -151,6 +156,8 @@ export default function PublishScreen() {
     console.log(newPost);
     console.log(JSON.stringify(newPost));
 
+    setState((s) => ({ ...s, loading: true }));
+
     axios
       .post(
         "http://localhost:5003/cultivando-ideias/us-central1/api/posts",
@@ -160,6 +167,7 @@ export default function PublishScreen() {
         history.push(`/post/${response.data}/${newPost.contents[0].language}`);
       })
       .catch((error) => {
+        setState((s) => ({ ...s, loading: false }));
         showErrorMessage(["Erro ao salvar"]);
         console.log(error);
       });
@@ -305,6 +313,7 @@ export default function PublishScreen() {
           />
         </Container>
       </div>
+      <Loading open={state.loading} />
     </React.Fragment>
   );
 }

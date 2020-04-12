@@ -7,6 +7,7 @@ import PostSummary from "../../models/PostSummary";
 import Outdoor from "../../components/Outdoor/Outdoor";
 import PostList from "../../components/PostList/PostList";
 import Toolbar from "../../components/Toolbar/Toolbar";
+import Loading from "../../components/Prefabs/Feedback/Loading";
 
 export default function HomeScreen() {
   const [state, setState] = useState({
@@ -25,7 +26,10 @@ export default function HomeScreen() {
         });
         setState(() => ({ posts: response.data, loading: false }));
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setState((s) => ({ ...s, loading: false }));
+      });
   }, []);
 
   return (
@@ -35,6 +39,7 @@ export default function HomeScreen() {
       <Container maxWidth="sm">
         <PostList posts={state.posts} />
       </Container>
+      <Loading open={state.loading} />
     </React.Fragment>
   );
 }
