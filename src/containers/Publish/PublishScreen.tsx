@@ -50,25 +50,6 @@ function tabProps(index: any) {
   };
 }
 
-const authors: KeyValue[] = [
-  {
-    key: "JcyVWytzvp5ahqzquc8N",
-    value: "Cilas",
-  },
-  {
-    key: "XDCQa1UMRG0bo0JHfZxR",
-    value: "Lorrayne",
-  },
-  {
-    key: "CC03scKlCGUuLEPkBeu5",
-    value: "Pedro",
-  },
-  {
-    key: "U7BSnqDAV1PjgKdcQfuD",
-    value: "Raphael",
-  },
-];
-
 const languageOptions: KeyValue[] = Languages.map((language) => {
   return { key: language.id, value: language.name } as KeyValue;
 });
@@ -82,12 +63,24 @@ interface Draft {
 
 export default function PublishScreen() {
   const [state, setState] = useState({
+    authorsList: [] as KeyValue[],
     author: "",
     tab: 0,
     drafts: [] as Draft[],
     validationSnackbar: false,
     validationMessage: [] as string[],
   });
+
+  useEffect(() => {
+    axios
+      .get(
+        "http://localhost:5003/cultivando-ideias/us-central1/api/authors/combo"
+      )
+      .then((response) => {
+        setState((s) => ({ ...s, authorsList: response.data }));
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   const classes = useStyles();
 
@@ -205,7 +198,7 @@ export default function PublishScreen() {
           <Grid container>
             <Grid item sm={6} xs={12}>
               <SelectMenu
-                items={authors}
+                items={state.authorsList}
                 label="Autor"
                 className={classes.formControl}
                 value={state.author}
