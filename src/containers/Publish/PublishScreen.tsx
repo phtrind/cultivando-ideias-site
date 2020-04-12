@@ -183,51 +183,57 @@ export default function PublishScreen() {
               />
             </Grid>
           </Grid>
-          <div className={classes.drafts}>
-            <Tabs
-              value={state.tab}
-              onChange={(_e, newValue) => setState({ ...state, tab: newValue })}
-              variant="fullWidth"
-            >
-              {state.drafts.map((draft, index) => {
-                return (
-                  <Tab
-                    key={index}
-                    icon={<LanguagesIcon language={draft.language.id} />}
-                    {...tabProps(index)}
-                  />
-                );
-              })}
-            </Tabs>
-            {state.drafts.map((draft, index) => {
-              return (
-                <div hidden={state.tab !== index} key={index}>
-                  <DraftEditor
-                    onStateChanged={(value) =>
-                      draftStateChangedHandler(value, index)
-                    }
-                    hasTitle
-                    initialTitle={draft.title}
-                    onTitleChanged={(value) =>
-                      draftTitleChangedHandler(value, index)
-                    }
-                    hasSummary
-                    initialSummary={draft.summary}
-                    onSummaryChanged={(value) =>
-                      draftSummaryChangedHandler(value, index)
-                    }
-                  />
-                </div>
-              );
-            })}
-          </div>
-          <Fab
-            variant="extended"
-            className={classes.button}
-            onClick={() => publish()}
-          >
-            Publicar
-          </Fab>
+          {state.drafts.length > 0 && (
+            <React.Fragment>
+              <div className={classes.drafts}>
+                <Tabs
+                  value={state.tab}
+                  onChange={(_e, newValue) =>
+                    setState({ ...state, tab: newValue })
+                  }
+                  variant="fullWidth"
+                >
+                  {state.drafts.map((draft, index) => {
+                    return (
+                      <Tab
+                        key={index}
+                        icon={<LanguagesIcon language={draft.language.id} />}
+                        {...tabProps(index)}
+                      />
+                    );
+                  })}
+                </Tabs>
+                {state.drafts.map((draft, index) => {
+                  return (
+                    <div hidden={state.tab !== index} key={index}>
+                      <DraftEditor
+                        onStateChanged={(value) =>
+                          draftStateChangedHandler(value, index)
+                        }
+                        hasTitle
+                        initialTitle={draft.title}
+                        onTitleChanged={(value) =>
+                          draftTitleChangedHandler(value, index)
+                        }
+                        hasSummary
+                        initialSummary={draft.summary}
+                        onSummaryChanged={(value) =>
+                          draftSummaryChangedHandler(value, index)
+                        }
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <Fab
+                variant="extended"
+                className={classes.button}
+                onClick={() => publish()}
+              >
+                Publicar
+              </Fab>
+            </React.Fragment>
+          )}
         </Container>
       </div>
     </React.Fragment>
