@@ -51,19 +51,19 @@ function tabProps(index: any) {
 
 const authors: KeyValue[] = [
   {
-    key: "1",
+    key: "JcyVWytzvp5ahqzquc8N",
     value: "Cilas",
   },
   {
-    key: "2",
+    key: "XDCQa1UMRG0bo0JHfZxR",
     value: "Lorrayne",
   },
   {
-    key: "3",
+    key: "CC03scKlCGUuLEPkBeu5",
     value: "Pedro",
   },
   {
-    key: "4",
+    key: "U7BSnqDAV1PjgKdcQfuD",
     value: "Raphael",
   },
 ];
