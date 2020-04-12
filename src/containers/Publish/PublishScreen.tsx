@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+
 import { Container, Grid, Tabs, Tab, Fab } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 
@@ -8,13 +10,13 @@ import LanguagesIcon from "../../components/Language/LanguageIcon";
 import DraftEditor from "../../components/Draft/DraftEditor/DraftEditor";
 import SelectMenu from "../../components/Prefabs/Forms/SelectMenu";
 import MultipleSelectMenu from "../../components/Prefabs/Forms/MultipleSelectMenu";
+import SnackBar from "../../components/Prefabs/Feedback/Snackbar";
 
 import Languages from "../../constants/Languages";
 import Language from "../../models/Language";
 import KeyValue from "../../models/KeyValue";
 import Content from "../../models/Content";
 import NewPost from "../../models/NewPost";
-import SnackBar from "../../components/Prefabs/Feedback/Snackbar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -83,6 +85,7 @@ export default function PublishScreen() {
   }, []);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const authorSelectionChanged = (
     event: React.ChangeEvent<{ value: unknown }>
@@ -143,21 +146,23 @@ export default function PublishScreen() {
     if (!publishIsValid(state.author, state.drafts)) {
       return;
     }
+    const newPost = getNewPost();
 
-    const contents: Content[] = state.drafts.map((draft) => {
-      return {
-        title: draft.title,
-        summary: draft.summary,
-        language: draft.language.id,
-        data: draft.value,
-      } as Content;
-    });
-    const post: NewPost = {
-      author: state.author,
-      contents: contents,
-    };
-    console.log(post);
-    console.log(JSON.stringify(post));
+    console.log(newPost);
+    console.log(JSON.stringify(newPost));
+
+    axios
+      .post(
+        "http://localhost:5003/cultivando-ideias/us-central1/api/posts",
+        newPost
+      )
+      .then((response) => {
+        history.push(`/post/${response.data}/${newPost.contents[0].language}`);
+      })
+      .catch((error) => {
+        showErrorMessage(["Erro ao salvar"]);
+        console.log(error);
+      });
   };
 
   const publishIsValid = (author: string, drafts: Draft[]): boolean => {
@@ -180,14 +185,34 @@ export default function PublishScreen() {
     const isValid = messages.length === 0;
 
     if (!isValid) {
-      setState({
-        ...state,
-        validationMessage: messages,
-        validationSnackbar: true,
-      });
+      showErrorMessage(messages);
     }
 
     return isValid;
+  };
+
+  const showErrorMessage = (messages: string[]) => {
+    setState({
+      ...state,
+      validationMessage: messages,
+      validationSnackbar: true,
+    });
+  };
+
+  const getNewPost = (): NewPost => {
+    const contents: Content[] = state.drafts.map((draft) => {
+      return {
+        title: draft.title,
+        summary: draft.summary,
+        language: draft.language.id,
+        data: draft.value,
+      } as Content;
+    });
+    const post: NewPost = {
+      author: state.author,
+      contents: contents,
+    };
+    return post;
   };
 
   return (
