@@ -14,6 +14,7 @@ import Language from "../../models/Language";
 import KeyValue from "../../models/KeyValue";
 import Content from "../../models/Content";
 import NewPost from "../../models/NewPost";
+import SnackBar from "../../components/Prefabs/Feedback/Snackbar";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,6 +85,8 @@ export default function PublishScreen() {
     author: "",
     tab: 0,
     drafts: [] as Draft[],
+    validationSnackbar: false,
+    validationMessage: [] as string[],
   });
 
   const classes = useStyles();
@@ -103,7 +106,10 @@ export default function PublishScreen() {
       const existentDraft = state.drafts.filter(
         (x) => x.language.id === option
       );
-      let draftLanguage, draftState, draftTitle, draftSummary;
+      let draftLanguage,
+        draftState = "",
+        draftTitle = "",
+        draftSummary = "";
       if (existentDraft.length > 0) {
         draftLanguage = existentDraft[0].language;
         draftState = existentDraft[0].value;
@@ -111,7 +117,6 @@ export default function PublishScreen() {
         draftSummary = existentDraft[0].summary;
       } else {
         draftLanguage = Languages.find((x) => x.id === option);
-        draftState = {};
       }
       return {
         language: draftLanguage,
@@ -163,7 +168,33 @@ export default function PublishScreen() {
   };
 
   const publishIsValid = (author: string, drafts: Draft[]): boolean => {
-    return true;
+    let messages: string[] = [];
+    if (author.length === 0) {
+      messages.push("Selecione o autor");
+    }
+    drafts.forEach((draft) => {
+      if (draft.title.length === 0) {
+        messages.push(`Preencha o título (${draft.language.name})`);
+      }
+      if (draft.summary.length === 0) {
+        messages.push(`Preencha o resumo (${draft.language.name})`);
+      }
+      if (draft.value.length === 0) {
+        messages.push(`Preencha o conteúdo (${draft.language.name})`);
+      }
+    });
+
+    const isValid = messages.length === 0;
+
+    if (!isValid) {
+      setState({
+        ...state,
+        validationMessage: messages,
+        validationSnackbar: true,
+      });
+    }
+
+    return isValid;
   };
 
   return (
@@ -242,6 +273,18 @@ export default function PublishScreen() {
               </Fab>
             </React.Fragment>
           )}
+          <SnackBar
+            open={state.validationSnackbar}
+            message={state.validationMessage.join("\n")}
+            onClose={() =>
+              setState({
+                ...state,
+                validationSnackbar: false,
+                validationMessage: [],
+              })
+            }
+            severity="error"
+          />
         </Container>
       </div>
     </React.Fragment>
