@@ -1,17 +1,24 @@
 import React, { FunctionComponent } from "react";
-import { FormControl, MenuItem, InputLabel, Select } from "@material-ui/core";
+import {
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Select,
+  Checkbox,
+  ListItemText,
+} from "@material-ui/core";
 
-import KeyValue from "../../models/KeyValue";
+import KeyValue from "../../../models/KeyValue";
 
-type SelectMenuProps = {
+type MultipleSelectMenuProps = {
   items: KeyValue[];
   label: string;
-  value: string;
+  value: string[];
   className?: string;
   onChange: (event: React.ChangeEvent<{ value: unknown }>) => void;
 };
 
-const SelectMenu: FunctionComponent<SelectMenuProps> = ({
+const MultipleSelectMenu: FunctionComponent<MultipleSelectMenuProps> = ({
   items,
   label,
   value,
@@ -25,13 +32,20 @@ const SelectMenu: FunctionComponent<SelectMenuProps> = ({
         labelId={`${label}-label`}
         value={value}
         onChange={onChange}
+        renderValue={(selected) =>
+          (selected as string[])
+            .map((key) => items.filter((item) => item.key === key)[0].value)
+            .join(", ")
+        }
+        multiple
       >
         <MenuItem value={""} disabled={true}>
           <em>Selecione</em>
         </MenuItem>
         {items.map((item) => (
           <MenuItem key={item.key} value={item.key}>
-            {item.value}
+            <Checkbox checked={value.some((x) => x === item.key)} />
+            <ListItemText primary={item.value} />
           </MenuItem>
         ))}
       </Select>
@@ -39,4 +53,4 @@ const SelectMenu: FunctionComponent<SelectMenuProps> = ({
   );
 };
 
-export default SelectMenu;
+export default MultipleSelectMenu;

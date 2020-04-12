@@ -6,8 +6,8 @@ import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import LanguagesIcon from "../../components/Language/LanguageIcon";
 import DraftEditor from "../../components/Draft/DraftEditor/DraftEditor";
-import SelectMenu from "../../components/Forms/SelectMenu";
-import MultipleSelectMenu from "../../components/Forms/MultipleSelectMenu";
+import SelectMenu from "../../components/Prefabs/Forms/SelectMenu";
+import MultipleSelectMenu from "../../components/Prefabs/Forms/MultipleSelectMenu";
 
 import Languages from "../../constants/Languages";
 import Language from "../../models/Language";
@@ -142,6 +142,10 @@ export default function PublishScreen() {
   };
 
   const publish = () => {
+    if (!publishIsValid(state.author, state.drafts)) {
+      return;
+    }
+
     const contents: Content[] = state.drafts.map((draft) => {
       return {
         title: draft.title,
@@ -156,6 +160,10 @@ export default function PublishScreen() {
     };
     console.log(post);
     console.log(JSON.stringify(post));
+  };
+
+  const publishIsValid = (author: string, drafts: Draft[]): boolean => {
+    return true;
   };
 
   return (
