@@ -29,7 +29,7 @@ const SnackBar: FunctionComponent<SnackbarProps> = ({
     <Snackbar
       className={classes.root}
       open={open}
-      autoHideDuration={5000}
+      autoHideDuration={6000}
       onClose={onClose}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
     >
