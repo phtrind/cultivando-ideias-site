@@ -75,6 +75,7 @@ const languageOptions: KeyValue[] = Languages.map((language) => {
 interface Draft {
   language: Language;
   title: string;
+  summary: string;
   value: string;
 }
 
@@ -130,10 +131,17 @@ export default function PublishScreen() {
     setState({ ...state, drafts: drafts });
   };
 
+  const draftSummaryChangedHandler = (summary: string, index: number) => {
+    const drafts = state.drafts;
+    drafts[index].summary = summary;
+    setState({ ...state, drafts: drafts });
+  };
+
   const publish = () => {
     const contents: Content[] = state.drafts.map((draft) => {
       return {
         title: draft.title,
+        summary: draft.summary,
         language: draft.language.id,
         data: draft.value,
       } as Content;
@@ -187,17 +195,23 @@ export default function PublishScreen() {
                 );
               })}
             </Tabs>
-            {state.drafts.map((_, index) => {
+            {state.drafts.map((draft, index) => {
               return (
                 <div hidden={state.tab !== index} key={index}>
                   <DraftEditor
                     onStateChanged={(value) =>
                       draftStateChangedHandler(value, index)
                     }
+                    hasTitle
+                    initialTitle={draft.title}
                     onTitleChanged={(value) =>
                       draftTitleChangedHandler(value, index)
                     }
-                    hasTitle
+                    hasSummary
+                    initialSummary={draft.summary}
+                    onSummaryChanged={(value) =>
+                      draftSummaryChangedHandler(value, index)
+                    }
                   />
                 </div>
               );
