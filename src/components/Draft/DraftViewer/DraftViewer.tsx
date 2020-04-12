@@ -12,7 +12,7 @@ const useStyles = makeStyles(() =>
         "'Inria Sans', Georgia, Cambria, 'Times New Roman', Times, serif;",
       lineHeight: "33px",
       fontSize: "21px",
-      fontWeight: 400,
+      fontWeight: 200,
     },
   })
 );

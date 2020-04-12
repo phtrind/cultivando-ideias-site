@@ -14,7 +14,7 @@ const useStyles = makeStyles(() =>
         "'Inria Sans', Georgia, Cambria, 'Times New Roman', Times, serif;",
       lineHeight: "33px",
       fontSize: "21px",
-      fontWeight: 100,
+      fontWeight: 200,
     },
     section: {
       marginBottom: "20px",
