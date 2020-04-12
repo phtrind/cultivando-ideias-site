@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       marginTop: "40px",
       marginBottom: "40px",
+      cursor: "pointer",
     },
     summary: {
       marginBottom: "10px",
