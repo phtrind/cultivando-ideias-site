@@ -13,6 +13,7 @@ const useStyles = makeStyles(() =>
       lineHeight: "33px",
       fontSize: "21px",
       fontWeight: 200,
+      textAlign: "justify",
     },
   })
 );
