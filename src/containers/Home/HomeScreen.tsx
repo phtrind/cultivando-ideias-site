@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container } from "@material-ui/core";
 import axios from "axios";
-
-import PostSummary from "../../models/PostSummary";
+import { Container } from "@material-ui/core";
 
 import Outdoor from "../../components/Outdoor/Outdoor";
 import PostList from "../../components/PostList/PostList";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import Loading from "../../components/Prefabs/Feedback/Loading";
+
+import { postsServiceApi } from "../../shared/constants";
+import PostSummary from "../../models/PostSummary";
 
 export default function HomeScreen() {
   const [state, setState] = useState({
@@ -17,9 +18,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:5003/cultivando-ideias/us-central1/api/posts/summary/pt-BR`
-      )
+      .get(`${postsServiceApi}summary/pt-BR`)
       .then((response) => {
         response.data.forEach((x: PostSummary) => {
           x.datetime = new Date(x.datetime);

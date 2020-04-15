@@ -4,10 +4,12 @@ import { Container } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useHistory, useParams } from "react-router-dom";
 
-import PostModel from "../../models/Post";
 import Post from "../../components/Post/Post";
 import Toolbar from "../../components/Toolbar/Toolbar";
 import Loading from "../../components/Prefabs/Feedback/Loading";
+
+import { postsServiceApi } from "../../shared/constants";
+import PostModel from "../../models/Post";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,9 +47,7 @@ export default function PostScreen() {
 
   useEffect(() => {
     axios
-      .get(
-        `http://localhost:5003/cultivando-ideias/us-central1/api/posts/${id}/${language}`
-      )
+      .get(`${postsServiceApi}${id}/${language}`)
       .then((response) => {
         response.data.datetime = new Date(response.data.datetime);
         setState(() => ({ post: response.data, loading: false }));

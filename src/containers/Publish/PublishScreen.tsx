@@ -11,13 +11,14 @@ import DraftEditor from "../../components/Draft/DraftEditor/DraftEditor";
 import SelectMenu from "../../components/Prefabs/Forms/SelectMenu";
 import MultipleSelectMenu from "../../components/Prefabs/Forms/MultipleSelectMenu";
 import SnackBar from "../../components/Prefabs/Feedback/Snackbar";
+import Loading from "../../components/Prefabs/Feedback/Loading";
 
+import { postsServiceApi, authorsServiceApi } from "../../shared/constants";
 import Languages from "../../constants/Languages";
 import Language from "../../models/Language";
 import KeyValue from "../../models/KeyValue";
 import Content from "../../models/Content";
 import NewPost from "../../models/NewPost";
-import Loading from "../../components/Prefabs/Feedback/Loading";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -77,9 +78,7 @@ export default function PublishScreen() {
 
   useEffect(() => {
     axios
-      .get(
-        "http://localhost:5003/cultivando-ideias/us-central1/api/authors/combo"
-      )
+      .get(`${authorsServiceApi}combo`)
       .then((response) => {
         setState((s) => ({ ...s, authorsList: response.data, loading: false }));
       })
@@ -159,10 +158,7 @@ export default function PublishScreen() {
     setState((s) => ({ ...s, loading: true }));
 
     axios
-      .post(
-        "http://localhost:5003/cultivando-ideias/us-central1/api/posts",
-        newPost
-      )
+      .post(postsServiceApi, newPost)
       .then((response) => {
         history.push(`/post/${response.data}/${newPost.contents[0].language}`);
       })
