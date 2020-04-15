@@ -1,16 +1,19 @@
 import React, { FunctionComponent } from "react";
+import { useHistory } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 
 import PostSummaryModel from "../../models/PostSummary";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      marginTop: "40px",
-      marginBottom: "40px",
+      marginTop: "10px",
+      marginBottom: "50px",
       cursor: "pointer",
+      "@media (min-width: 500px)": {
+        marginTop: "50px",
+      },
     },
     summary: {
       marginBottom: "10px",
