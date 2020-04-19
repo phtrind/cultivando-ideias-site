@@ -9,7 +9,7 @@ import InfoBar, { InfoBarModel } from "./InfoBar";
 import AuthorInfo from "./AuthorInfo";
 import DraftViewer from "../Draft/DraftViewer/DraftViewer";
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     marginBottom: {
       marginBottom: "40px",
