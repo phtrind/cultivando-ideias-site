@@ -8,12 +8,7 @@ import PostSummaryModel from "../../models/PostSummary";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      marginTop: "10px",
-      marginBottom: "50px",
       cursor: "pointer",
-      "@media (min-width: 500px)": {
-        marginTop: "50px",
-      },
     },
     summary: {
       marginBottom: "10px",
