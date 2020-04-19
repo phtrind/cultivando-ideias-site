@@ -10,7 +10,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-    //   borderTop: `1px solid ${theme.palette.secondary.main}`,
     },
     link: {
       textDecoration: "none",
