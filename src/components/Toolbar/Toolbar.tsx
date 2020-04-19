@@ -1,18 +1,20 @@
 import React, { FunctionComponent } from "react";
+import { useHistory } from "react-router-dom";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { createStyles, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import ToolbarMaterial from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import NavigationItems from "./NavigationsItems";
-import WithClass from "../../hoc/WithClass";
-import SideDrawer from "./SideDrawer";
-import ButtonListItem from "../../models/ButtonListItem";
 import BookIcon from "@material-ui/icons/Book";
 import AccessibilityNewIcon from "@material-ui/icons/AccessibilityNew";
 import { Container } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import Button from "@material-ui/core/Button";
+
+import WithClass from "../../hoc/WithClass";
+import NavigationItems from "./NavigationsItems";
+import SideDrawer from "./SideDrawer";
+import ButtonListItem from "../../models/ButtonListItem";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -69,9 +71,13 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({
     {
       icon: <AccessibilityNewIcon />,
       text: "Conheça a gente",
-      click: () => {},
+      click: () => history.push("/about"),
     },
   ];
+
+  const shownTitle = useMediaQuery("(min-width:500px)")
+    ? "Cultivando Ideias"
+    : title;
 
   return (
     <div className={classes.root}>
@@ -89,7 +95,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({
                   <ArrowBackIcon />
                 </Button>
               )}
-              {showTitle && <Typography variant="h5">{title}</Typography>}
+              {showTitle && <Typography variant="h5">{shownTitle}</Typography>}
             </div>
             {(showMenu === undefined || showMenu === true) && (
               <React.Fragment>
