@@ -12,10 +12,12 @@ const theme = createMuiTheme({
   typography: {
     fontFamily: "'Inria Sans'",
     body1: {
-      fontFamily: "'Inria Sans'",
-      fontWeight: "lighter",
-      fontSize: "20px",
-      lineHeight: 1.58,
+      fontFamily:
+        "'Inria Sans', Georgia, Cambria, 'Times New Roman', Times, serif;",
+      lineHeight: "33px",
+      fontSize: "21px",
+      fontWeight: 200,
+      textAlign: "justify",
     },
   },
   palette: {
