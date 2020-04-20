@@ -81,7 +81,7 @@ const Toolbar: FunctionComponent<ToolbarProps> = ({
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default" elevation={0}>
+      <AppBar position="static" color="default" elevation={3}>
         <Container maxWidth="md">
           <ToolbarMaterial className={classes.toolbarMaterial}>
             <div className={classes.leftOptions}>
