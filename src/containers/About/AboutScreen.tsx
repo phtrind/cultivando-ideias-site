@@ -125,7 +125,6 @@ export default function AboutScreen() {
   return (
     <React.Fragment>
       <Toolbar showTitle title="Conheça a gente" />
-      <Outdoor />
       <Container maxWidth="md">
         <Tabs
           value={state.tab}
