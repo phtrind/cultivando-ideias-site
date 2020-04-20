@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HomeScreen from "./containers/Home/HomeScreen";
 import PostScreen from "./containers/Post/PostScreen";
 import PublishScreen from "./containers/Publish/PublishScreen";
+import AboutScreen from "./containers/About/AboutScreen";
 import Footer from "./components/Footer/Footer";
 
 const theme = createMuiTheme({
@@ -61,6 +62,7 @@ export default function App() {
           <Route path="/" exact component={HomeScreen} />
           <Route path="/post/:id/:language" exact component={PostScreen} />
           <Route path="/publish" exact component={PublishScreen} />
+          <Route path="/about" exact component={AboutScreen} />
         </Switch>
       </Router>
       <Footer />
