@@ -22,6 +22,9 @@ const bioCilas =
 const bioLorrayne =
   "Meu nome é Lorrayne Anacleto, tenho 24 anos, sou ariana, formada em Recursos Humanos, atualmente estudante de Direito e nasci na cidade de Belo Horizonte/MG. Ainda incerta da carreira que vou seguir, só desejo ser feliz no que eu fizer e que eu goste do meu trabalho. E os meus amigos estão no meu plano futuro. Gosto de ler e ultimamente despertei o interesse em escrever. Sinto que tem me ajudado bastante a organizar os meus pensamentos e sentimentos. Quando criança, eu gostava de escrever, mas nada formal, eu gostava de escrever no diário ou então em algum papel qualquer sobre coisas e acontecimentos aleatórios, sentia que era uma conversa comigo mesma e aquilo me fazia bem. O tempo foi passando, responsabilidades foram chegando e acabei abandonando esse hábito. Felizmente, eu resgatei o hábito de escrever e tenho relembrado o quanto é gratificante. Hoje é como se eu conseguisse estar mais centrada à minha vida, e de fato, acredito que estou. Confesso que tive um receio inicial, sem saber como me sairia, mas tenho ficado feliz comigo e cada vez mais eu percebo que não existe uma fórmula mágica, é algo que só depende de mim. Escrever tem se tornado um hobbie para mim, é um momento de calmaria, eu coloco uma música e deixo fluir. Tem sido o meu momento favorito do dia. Além de perceber o quanto é algo positivo na minha vida, eu penso que posso levar algo bom à outro alguém através da escrita e isso me motiva muito.";
 
+const bioPhael =
+  "Ei você aí! Chega mais, venha ver eu me definir. Meu nome é Raphael, minha idade nem vem ao caso. Curto estudar coisas lógicas e me aventurar nas coisas não lógicas. A engenharia é minha praia do momento, curto as ondas e os cálculos da maré. A escrita vem chegando no sapatinho e tomando espaço na minha rotina. Buscar o melhor pra mim é o meu foco de vida, inspirado por amigos e família sempre na busca da famosa “qualidade de vida”. Aventurar no mundão pode ser minha principal paixão. No externo é tudo diferente e ao mesmo tempo tão receptivo. A divergência cultural acaba se tornando a atração e quando chega nas línguas, ah as línguas… me apaixonei por elas no meio do caminho. Essa paixão é alimentada diariamente e em diferentes idiomas e por aí vou seguir meu caminho e por aqui vou cultivar um pouquinho.";
+
 const authors: Author[] = [
   {
     id: "1",
@@ -62,7 +65,7 @@ const authors: Author[] = [
     image:
       "https://miro.medium.com/fit/c/256/256/2*Hnm0N_fqLg_3zucw711AVw.jpeg",
     bio: {
-      data: bio,
+      data: bioPhael,
       language: "pt-BR",
       availableLanguages: ["pt-BR"],
     },
